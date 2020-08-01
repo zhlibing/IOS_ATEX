@@ -1,0 +1,139 @@
+//
+//  PrefixHeader.pch
+//  SSKJ
+//
+//  Created by 刘小雨 on 2018/12/6.
+//  Copyright © 2018年 刘小雨. All rights reserved.
+//
+
+
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+
+
+
+#import "UIImage+Extension.h"
+
+// frame
+#import "UIView+Extension.h"
+
+#import "UIColor+MCUIColorsUtils.h"
+
+#import "UILabel+SSKJ.h"
+#import "UIButton+SSKJ.h"
+#import "SSKJ_TextFieldView.h"
+#import "UITextField+SSKJ.h"
+
+#import "WYVerifyTool.h"
+
+// 工具类
+#import "WLTools.h"
+
+// define类
+#import "SystemDefine.h"
+
+//下拉和上拉刷新
+#import "MJRefresh.h"
+
+//网络图片 缓存
+#import "SDImageCache.h"
+
+//页面布局
+#import "Masonry.h"
+
+
+// 键盘弹出
+#import "IQKeyboardManager.h"
+
+
+// 网络请求封装model
+#import "WL_Network_Model.h"
+
+// HUD 提示框
+#import "MBProgressHUD.h"
+
+#import "MBHUD.h"
+
+
+#import "MBProgressHUD+FR.h"
+
+// 语言设置工具
+#import "SSKJLocalized.h"
+
+// JSON转model
+#import "MJExtension.h"
+
+// 用户信息管理工具
+#import "SSKJ_User_Tool.h"
+
+// k线图frame设定
+#import "LXY_FrameDefine.h"
+
+// k线图颜色
+#import "UIColor+LXYKline.h"
+
+// 轮播图
+#import <SDCycleScrollView.h>
+
+// 网络请求类
+#import "WLHttpManager.h"
+
+// 长连接推送类
+#import "ManagerSocket.h"
+
+#import "FactoryUI.h"
+
+#import "UIImageView+WebCache.h"
+
+#import "SSKJ_NoDataView.h"
+
+#import "RegularExpression.h"
+
+#import "UITextField+PlaceHolder.h"
+
+#import "SSKJ_Default_AlertView.h"
+#import "SSKJ_Default_ActionsheetView.h"
+
+#import "SSTool.h"
+
+#import "SSKJ_Market_Index_Model.h"
+
+#import "SSKJ_AreaCode_View.h"
+#import "MBProgressHUD+FR.h"
+#import "Home_Segment_View.h"
+#import "SSKJ_baseTableViewCell.h"
+#import "UIView+cornerAndColors.h"
+
+// 交易类型  normal正常交易，scratch抢筹交易
+typedef NS_ENUM(NSInteger,sellAndBuyStyle){
+    //normal
+    sellAndBuyStyleNomal,
+    //抢筹
+    sellAndBuyStyleScratch=1,
+    // 全币交易
+    sellAndBuyStyleQBTrade
+};
+
+// 历史记录类型, 充值记录和提币记录
+typedef NS_ENUM(NSInteger, RecordType) {
+    RecordTypeChongZhi,
+    RecordTypeTiBi,
+};
+
+// 交易类型
+typedef NS_ENUM(NSInteger, TradeType) {
+    TradeTypeGangGanTrade,
+    TradeTypeQBTradeBuy,
+    TradeTypeQBTradeSell,
+    TradeTypeQiangChou,
+};
+
+// 购买类型(FB)
+typedef NS_ENUM(NSUInteger, BuySellType) {
+    BuySellTypeBuy = 0,
+    BuySellTypeSell = 1,
+};
+
+#endif /* PrefixHeader_pch */

@@ -1,0 +1,18 @@
+//
+//  My_PromoteDetail_Model.m
+//  ZYW_MIT
+//
+//  Created by 刘小雨 on 2018/11/29.
+//  Copyright © 2018年 Wang. All rights reserved.
+//
+
+#import "My_PromoteDetail_Model.h"
+
+@implementation My_PromoteDetail_Model
++ (NSDictionary *)objectClassInArray{
+    return @{
+             @"list" : @"My_Promote_Index_Model",
+             };
+}
+
+@end

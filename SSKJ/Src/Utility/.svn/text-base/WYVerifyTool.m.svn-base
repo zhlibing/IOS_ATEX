@@ -1,0 +1,145 @@
+//
+//  WYVerifyTool.m
+//  ICC
+//
+//  Created by zpz on 2019/7/17.
+//  Copyright © 2019 WeiLv Technology. All rights reserved.
+//
+
+#import "WYVerifyTool.h"
+#import <VerifyCode/NTESVerifyCodeManager.h>
+
+@interface WYVerifyTool()<NTESVerifyCodeManagerDelegate>
+
+@property(nonatomic,strong)NTESVerifyCodeManager *manager;
+
+@property (nonatomic,copy)void(^completeBlock)(BOOL, NSString * _Nullable, NSString * _Nonnull);
+
+@end
+
+@implementation WYVerifyTool
+
+
++ (WYVerifyTool *)sharedInstance{
+    static WYVerifyTool *tool=nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        tool = [[WYVerifyTool alloc] init];
+    });
+    return tool;
+}
+
+- (void)startVerifyCompletion:(void (^)(BOOL, NSString * _Nullable, NSString * _Nonnull))completion{
+    
+    //暂时 注释掉滑块
+    completion(YES, @"", @"");
+    return;
+    
+    self.manager =  [NTESVerifyCodeManager sharedInstance];
+    if (self.manager) {
+        
+        self.manager.delegate = self;
+        
+        // captchaid的值是每个产品从后台生成的,比如 @"a05f036b70ab447b87cc788af9a60974"
+        
+        // 传统验证码
+        NSString *captchaid = @"77f756ef4799434886a664e1293c05d1";
+        self.manager.mode = NTESVerifyCodeNormal;
+        
+        // 无感知验证码
+        //        NSString *captchaid = @"6a5cab86b0eb4c309ccb61073c4ab672";
+        //        self.manager.mode = NTESVerifyCodeBind;
+        
+        [self.manager configureVerifyCode:captchaid timeout:7.0];
+        
+        // 设置语言
+        NSString *language = [[SSKJLocalized sharedInstance] currentLanguage];
+//        // 繁体
+//        NTESVerifyCodeLangTW,
+//        // 日文
+//        NTESVerifyCodeLangJP,
+//        // 韩文
+//        NTESVerifyCodeLangKR,
+        if ( [language isEqualToString:@"en"]) {
+            self.manager.lang = NTESVerifyCodeLangEN;
+
+        }
+        else if ( [language isEqualToString:@"ja"]) {
+            self.manager.lang = NTESVerifyCodeLangJP;
+            
+        }else if ( [language isEqualToString:@"ko"]) {
+            self.manager.lang = NTESVerifyCodeLangKR;
+            
+        }else if ( [language isEqualToString:@"zh-Hant"]) {
+            self.manager.lang = NTESVerifyCodeLangTW;
+            
+        }else{
+            self.manager.lang = NTESVerifyCodeLangCN;
+
+        }
+        
+        self.manager.alpha = 0.3;
+        
+        self.manager.color = [UIColor blackColor];
+        
+        self.manager.frame = CGRectNull;
+        
+        [self.manager openVerifyCodeView:nil];
+        
+        self.completeBlock = completion;
+    }
+}
+
+#pragma mark - NTESVerifyCodeManagerDelegate
+/**
+ * 验证码组件初始化完成
+ */
+- (void)verifyCodeInitFinish{
+    SSLog(@"收到初始化完成的回调");
+}
+
+/**
+ * 验证码组件初始化出错
+ *
+ * @param message 错误信息
+ */
+- (void)verifyCodeInitFailed:(NSString *)message{
+    SSLog(@"收到初始化失败的回调:%@",message);
+}
+
+/**
+ * 关闭验证码窗口后的回调
+ */
+- (void)verifyCodeCloseWindow{
+    //用户关闭验证后执行的方法
+    SSLog(@"收到关闭验证码视图的回调");
+}
+
+/**
+ * 网络错误
+ *
+ * @param error 网络错误信息
+ */
+- (void)verifyCodeNetError:(NSError *)error{
+    //用户关闭验证后执行的方法
+    SSLog(@"收到网络错误的回调:%@(%ld)", [error localizedDescription], (long)error.code);
+}
+
+
+/**
+ * 完成验证之后的回调
+ *
+ * @param result 验证结果 BOOL:YES/NO
+ * @param validate 二次校验数据，如果验证结果为false，validate返回空
+ * @param message 结果描述信息
+ *
+ */
+- (void)verifyCodeValidateFinish:(BOOL)result validate:(NSString *)validate message:(NSString *)message{
+    SSLog(@"收到验证结果的回调:(%d,%@,%@)", result, validate, message);
+    
+    if (self.completeBlock) {
+        self.completeBlock(result, validate, message);
+    }
+}
+
+@end
