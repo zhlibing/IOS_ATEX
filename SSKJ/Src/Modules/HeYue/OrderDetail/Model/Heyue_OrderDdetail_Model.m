@@ -15,8 +15,7 @@
 {
     return @{
              @"marketPrice": @"newprice",
-             @"ID": @"id"
-
+             @"ID": @"id",
              };
 }
 

@@ -445,7 +445,7 @@
     self.zuixinPriceLabel.text = [SSTool HeyueCoin:weituoModel.code price:weituoModel.market_price];
 
     //张数
-    self.numLabel.text = [NSString stringWithFormat:@"%@%@",weituoModel.sheets,SSKJLocalized(@"张", nil)];
+    self.numLabel.text = [NSString stringWithFormat:@"%@%@",weituoModel.hands,SSKJLocalized(@"张", nil)];
     //保证金
     self.baozhengjinPriceLabel.text = [SSTool HeyuePname:weituoModel.code price:weituoModel.totalprice];
     

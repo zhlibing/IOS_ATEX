@@ -657,7 +657,7 @@
                              @"otype":self.isBuySell==1?@"1":@"2",
                              @"type":@(self.isXianShiPrice),
                              @"code":stockCodeStr,
-                             @"sheets":self.cangweiView.numberTextField.text,
+                             @"buynum":self.cangweiView.numberTextField.text,
                              @"leverage":@(self.leverage),
                              @"totalPrice":self.baozhengjinNum
                              };

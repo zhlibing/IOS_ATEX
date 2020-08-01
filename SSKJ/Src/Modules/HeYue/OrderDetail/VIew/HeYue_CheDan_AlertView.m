@@ -420,7 +420,7 @@
 
     self.typelabel.textColor = type.integerValue == 1?kMarketUp:kMarketDown;
     
-    self.numLabel.text = [weituoModel.sheets stringByAppendingString:SSKJLocalized(@"张", nil)];
+    self.numLabel.text = [weituoModel.hands stringByAppendingString:SSKJLocalized(@"张", nil)];
     
     self.PriceLabel.text = [SSTool HeyueCoin:weituoModel.code price:weituoModel.market_price];
         

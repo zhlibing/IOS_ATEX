@@ -392,12 +392,16 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
                              };
     WS(weakSelf);
     //Heyue_Chicang_Api
-    [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_DoingList_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject) {
+    [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_DoingList_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject)
+    {
         [hud hideAnimated:YES];
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-        if (netModel.status.integerValue == 200) {
+        if (netModel.status.integerValue == 200)
+        {
             [weakSelf handleExchangeListWithModel:netModel];
-        }else{
+        }
+        else
+        {
             [MBProgressHUD showError:netModel.msg];
         }
         [self endRefresh];
@@ -459,7 +463,7 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
     
     NSDictionary *params = @{
                              @"order_id":model.ID,
-                             @"sheets":number
+                             @"hands":number
                              };
     WS(weakSelf);
     //Heyue_currentPingcang_Api
@@ -488,7 +492,6 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
                             @"hold_id":self.curredntModel.ID,
                              @"zy":winStr,
                              @"zs":lossStr
-                            
                             };
     
     //Heyue_setPoitLossWin_Api

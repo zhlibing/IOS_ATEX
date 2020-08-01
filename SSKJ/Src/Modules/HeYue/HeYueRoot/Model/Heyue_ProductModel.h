@@ -11,6 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Heyue_ProductModel : NSObject
+
 @property (nonatomic, strong) NSArray *leverage;
 @property (nonatomic, strong) NSArray *position_select;
 
@@ -19,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,copy) NSString *max_order;//最大购买量
 
 @property (nonatomic,copy) NSString *sheets_rate;// 面值
+@property (nonatomic, copy) NSString *hands; //一手面值
 
 @property (nonatomic,copy) NSString *spread;//点差
 

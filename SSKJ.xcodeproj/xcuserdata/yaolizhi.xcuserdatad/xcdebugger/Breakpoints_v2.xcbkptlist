@@ -23,17 +23,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "4373D124-5FD3-41AF-84C4-7246634660A7"
+            uuid = "168281D4-8534-45B8-B23B-D521A7F77C8B"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SSKJ/Src/Modules/Assets/Controllers/Lion_AssetsMainPageVC.m"
+            filePath = "SSKJ/Src/Modules/HeYue/HeYueRoot/Controller/HEYue_ViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "134"
-            endingLineNumber = "134"
-            landmarkName = "-requestAssetInfo"
+            startingLineNumber = "705"
+            endingLineNumber = "705"
+            landmarkName = "-request_CreateOrder_URL:"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "168281D4-8534-45B8-B23B-D521A7F77C8B - d0cbd27659b27887"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[HEYue_ViewController request_CreateOrder_URL:]"
+                  moduleName = "ATEX"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yaolizhi/IOS_ATEX/SSKJ/Src/Modules/HeYue/HeYueRoot/Controller/HEYue_ViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "706"
+                  endingLineNumber = "706"
+                  offsetFromSymbolStart = "178">
+               </Location>
+               <Location
+                  uuid = "168281D4-8534-45B8-B23B-D521A7F77C8B - 8ecf5550495f1365"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__48-[HEYue_ViewController request_CreateOrder_URL:]_block_invoke"
+                  moduleName = "ATEX"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/yaolizhi/IOS_ATEX/SSKJ/Src/Modules/HeYue/HeYueRoot/Controller/HEYue_ViewController.m"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "706"
+                  endingLineNumber = "706"
+                  offsetFromSymbolStart = "15">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

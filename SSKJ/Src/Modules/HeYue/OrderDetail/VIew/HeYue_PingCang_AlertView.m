@@ -578,7 +578,7 @@
         return;
     }
     
-    if (_numberTextField.text.integerValue > self.model.sheets.doubleValue) {
+    if (_numberTextField.text.integerValue > self.model.hands.doubleValue) {
         [MBProgressHUD showError:SSKJLocalized(@"可平数量不足", nil)];
         return;
     }
@@ -618,7 +618,7 @@
     self.typelabel.text = [NSString stringWithFormat:@"%@",type.integerValue == 1?SSKJLocalized(@"做多", nil):SSKJLocalized(@"做空", nil)];
     self.typelabel.textColor = type.integerValue == 1?GREEN_HEX_COLOR:RED_HEX_COLOR;
     
-    self.buyPriceLabel.text = [[WLTools noroundingStringWith:model.sheets.doubleValue afterPointNumber:4]stringByAppendingString:SSKJLocalized(@"张", nil)];
+    self.buyPriceLabel.text = [[WLTools noroundingStringWith:model.hands.doubleValue afterPointNumber:4]stringByAppendingString:SSKJLocalized(@"张", nil)];
     
     self.nowPriceLabel.text =[WLTools noroundingStringWith:model.marketPrice.doubleValue afterPointNumber:[SSTool MarketPrice:model.code]];
     

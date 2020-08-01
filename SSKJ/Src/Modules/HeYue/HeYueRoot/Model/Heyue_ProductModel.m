@@ -10,4 +10,11 @@
 
 @implementation Heyue_ProductModel
 
+
+
++ (NSDictionary *)mj_replacedKeyFromPropertyName
+{
+    return @{@"sheets_rate":@"hands"};
+}
+
 @end

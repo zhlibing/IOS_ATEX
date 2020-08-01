@@ -641,7 +641,8 @@
     _chicangModel = chicangModel;
     //方向
     NSString *type = chicangModel.otype;
-    self.directionLabel.text = [NSString stringWithFormat:@"%@",type.integerValue == 1?SSKJLocalized(@"做多", nil):SSKJLocalized(@"做空", nil)];
+    
+    self.directionLabel.text = [NSString stringWithFormat:@"%@",type.integerValue == 1 ? SSKJLocalized(@"做多", nil):SSKJLocalized(@"做空", nil)];
     self.directionLabel.textColor = type.integerValue == 1?kMarketUp:kMarketDown;
     
     self.coinLabel.text = [chicangModel.code uppercaseString];
@@ -651,11 +652,23 @@
     self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",[chicangModel.created_at substringWithRange:NSMakeRange(11, 5)],[chicangModel.created_at substringWithRange:NSMakeRange(5, 5)]];
     
     NSString *str;
-    if (chicangModel.from.integerValue == 1) {
-        str = SSKJLanguage(@"市价");
-    }else if (chicangModel.from.integerValue == 2){
-        str = SSKJLanguage(@"限价");
+    NSInteger types = [chicangModel.type integerValue];
+    
+    switch (types)
+    {
+        case 1:
+        {
+            str = SSKJLanguage(@"市价");
+        }
+            break;
+        case 2:
+        {
+            str = SSKJLanguage(@"限价");
+        }
+            
+            break;
     }
+    
     
     self.typeLabel.text = str;
     
@@ -666,7 +679,7 @@
     self.newPriceLabel.text = [SSTool HeyueCoin:chicangModel.code price:chicangModel.marketPrice];
     
     //张数
-    self.numLabel.text = [NSString stringWithFormat:@"%@%@",chicangModel.sheets,SSKJLocalized(@"张", nil)];
+    self.numLabel.text = [NSString stringWithFormat:@"%@%@",chicangModel.hands,SSKJLocalized(@"张", nil)];
     
     self.guoyeLabel.text = [SSTool HeyuePname:chicangModel.code price:chicangModel.dayfee];
 

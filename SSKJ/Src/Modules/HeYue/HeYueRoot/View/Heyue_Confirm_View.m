@@ -365,7 +365,7 @@
     
     self.priceLabel.text = data[@"newprice"];
     
-    self.numberLabel.text = [data[@"sheets"] stringByAppendingString:SSKJLocalized(@"张", nil)];
+    self.numberLabel.text = [data[@"buynum"] stringByAppendingString:SSKJLocalized(@"张", nil)];
     
     self.baozhengjinLabel.text = data[@"totalPrice"];
     self.leverageLabel.text = [NSString stringWithFormat:@"%@",data[@"leverage"]];

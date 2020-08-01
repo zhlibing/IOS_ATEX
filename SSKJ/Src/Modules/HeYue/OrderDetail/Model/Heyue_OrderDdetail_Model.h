@@ -41,7 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  1市价 2限价委托
  */
-@property (nonatomic,copy) NSString * from;
+@property (nonatomic, copy) NSString *type;
+
 
 
 
@@ -54,17 +55,18 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  买入方向 1涨 2跌
  */
-@property (nonatomic,copy) NSString * otype;
+@property (nonatomic,copy) NSString *otype;
 
 /**
  成手手数(买入数量）
  */
 @property(nonatomic, copy)NSString *buynum;
 
+
 /**
  成手手数(买入张数）
  */
-@property(nonatomic, copy)NSString *sheets;
+@property(nonatomic, copy)NSString *hands;
 
 
 /**
