@@ -467,13 +467,17 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
                              };
     WS(weakSelf);
     //Heyue_currentPingcang_Api
-    [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_Done_URL RequestType:RequestTypePost Parameters:params Success:^(NSInteger statusCode, id responseObject) {
+    [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_Done_URL RequestType:RequestTypePost Parameters:params Success:^(NSInteger statusCode, id responseObject)
+    {
         [hud hideAnimated:YES];
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-        if (netModel.status.integerValue == 200) {
-            [MBProgressHUD showError:SSKJLocalized(@"平仓成功", nil)];
+        if (netModel.status.integerValue == 200)
+        {
+            [MBProgressHUD showError:netModel.msg];
             [weakSelf headerRefresh];
-        }else{
+        }
+        else
+        {
             [MBProgressHUD showError:netModel.msg];
         }
         

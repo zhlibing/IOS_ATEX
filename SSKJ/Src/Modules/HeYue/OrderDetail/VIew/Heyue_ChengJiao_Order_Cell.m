@@ -711,9 +711,12 @@
     self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",[chengJiaoModel.created_at substringWithRange:NSMakeRange(11, 5)],[chengJiaoModel.created_at substringWithRange:NSMakeRange(5, 5)]];
 
     NSString *str;
-    if (chengJiaoModel.from.integerValue == 1) {
+    if (chengJiaoModel.type.integerValue == 1)
+    {
         str = SSKJLanguage(@"市价");
-    }else if (chengJiaoModel.from.integerValue == 2){
+    }
+    else if (chengJiaoModel.type.integerValue == 2)
+    {
         str = SSKJLanguage(@"限价");
     }
     
@@ -730,7 +733,7 @@
     self.pingcangPriceLabel.text = [SSTool HeyueCoin:chengJiaoModel.code price:chengJiaoModel.sellprice];
     
     //张数
-    self.numLabel.text = [NSString stringWithFormat:@"%@%@",chengJiaoModel.sheets,SSKJLocalized(@"张", nil)];
+    self.numLabel.text = [NSString stringWithFormat:@"%@%@",chengJiaoModel.hands,SSKJLocalized(@"张", nil)];
     
     //保证金
     self.baozhengjinPriceLabel.text = [SSTool HeyuePname:chengJiaoModel.code price:chengJiaoModel.totalprice];

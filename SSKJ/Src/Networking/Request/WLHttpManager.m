@@ -584,10 +584,6 @@
     {
         Token = @"";
     }
-    else
-    {
-        Token = [@"Bearer " stringByAppendingString:Token];
-    }
     
     
     NSString *language = [[SSKJLocalized sharedInstance]currentLanguage];
@@ -596,10 +592,15 @@
     {
         languageType = @"en";
     }
-    else if ([language isEqualToString:@"zh-Hant"] || [language isEqualToString:@"zh-Hans"])
+    else if ([language isEqualToString:@"zh-Hans"])
     {
-        languageType = @"zh-CN";
+        languageType = @"zh";
     }
+    else if ([language isEqualToString:@"zh-Hant"])
+    {
+        languageType = @"ft";
+    }
+    
     NSString *Accept = @"application/json";
     
     NSString *loginType;

@@ -167,11 +167,18 @@ static NSString *ChengJiaoOrderID = @"ChengJiaoOrderID";
         [hud hideAnimated:YES];
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
         if (netModel.status.integerValue == 200) {
-            if ([netModel.data[@"data"] isKindOfClass:[NSArray class]]) {
+            if ([netModel.data[@"data"] isKindOfClass:[NSArray class]])
+            {
                 NSArray *array = [Heyue_Order_ChengjiaoModel mj_objectArrayWithKeyValuesArray:netModel.data[@"data"]];
-                if (array.count != kPageSize.integerValue) {
+                
+                
+                
+                if (array.count != kPageSize.integerValue)
+                {
                     self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
-                }else{
+                }
+                else
+                {
                     self.tableView.mj_footer.state = MJRefreshStateIdle;
                 }
                 

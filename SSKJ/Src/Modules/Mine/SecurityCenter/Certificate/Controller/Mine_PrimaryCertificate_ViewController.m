@@ -265,8 +265,8 @@ typedef NS_ENUM(NSUInteger, PhotoType) {
     NSDictionary *params = @{
                             @"name":name,
                              @"card_id":identity,
-//                            @"front_img":UIImageJPEGRepresentation(self.frontImage, 0.5),
-//                            @"back_img":UIImageJPEGRepresentation(self.backImage, 0.5),
+                            @"front_img":UIImageJPEGRepresentation(self.frontImage, 0.5),
+                            @"back_img":UIImageJPEGRepresentation(self.backImage, 0.5),
                             };
     NSDictionary *picDic = @{
         @"front_img":UIImageJPEGRepresentation(self.frontImage, 0.5),
