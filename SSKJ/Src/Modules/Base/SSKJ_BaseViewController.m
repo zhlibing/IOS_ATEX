@@ -250,7 +250,8 @@
     //初级认证状态   1已认证  0未认证
     NSInteger status = [SSKJ_User_Tool sharedUserTool].userInfoModel.authentication.integerValue;
 
-    if (status == 0) {                  // 未认证
+    if (status == 0)
+    {                  // 未认证
         [SSKJ_Default_AlertView showWithTitle:SSKJLocalized(@"提醒", nil) message:SSKJLocalized(@"您还未完成身份认证，去完成?", nil) cancleTitle:SSKJLocalized(@"取消", nil) confirmTitle:SSKJLocalized(@"去认证", nil) confirmBlock:^{
             Mine_PrimaryCertificate_ViewController *vc = [[Mine_PrimaryCertificate_ViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];

@@ -17,10 +17,8 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
 
 @property (nonatomic, strong) AddressManager_HeaderView *headerView;
 @property (nonatomic, weak) UITableView *tableView;
-//omni
-@property (nonatomic, strong) NSMutableArray *omniArray;
-//erc20
-@property (nonatomic, strong) NSMutableArray *ercArray;
+@property (nonatomic, strong) NSMutableArray *itemArray;
+
 
 @property (nonatomic, strong) UIButton *addButton;
 
@@ -46,18 +44,22 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    if (kLogin) {
+    if (kLogin)
+    {
         [self requesAddressList];
     }
 }
 
+
+#pragma mark - 切换数据
 -(void)setWalletType:(WalletType)walletType
 {
     _walletType = walletType;
-    
     self.headerView.walletType = walletType;
-    
+    [self requesAddressList];
 }
+
+
 
 
 #pragma mark - method
@@ -114,6 +116,19 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
 }
 
 
+
+-(NSMutableArray *)itemArray
+{
+    if (!_itemArray)
+    {
+        _itemArray = [[NSMutableArray alloc]init];
+    }
+    return _itemArray;
+}
+
+
+
+
 /**
  添加地址
  */
@@ -127,34 +142,18 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
 #pragma mark - UITableViewDelegate,UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSArray *array;
-    if (self.walletType == WalletTypeOMNI) {
-        array = self.omniArray;
-    }else{
-        array = self.ercArray;
-    }
     
-    [SSKJ_NoDataView showNoData:array.count toView:self.tableView offY:ScaleW(70)];
-    
-    return array.count;
+    [SSKJ_NoDataView showNoData:self.itemArray.count toView:self.tableView offY:ScaleW(70)];
+    return self.itemArray.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
    
     Mine_AddressList_TableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    
-    
-    NSArray *array;
-    if (self.walletType == WalletTypeOMNI) {
-        array = self.omniArray;
-    }else{
-        array = self.ercArray;
-    }
-    
-    [cell setValueWithData:array[indexPath.row]];
+    [cell setValueWithData:self.itemArray[indexPath.row]];
     WS(weakSelf);
      cell.deleBlock = ^{
-         weakSelf.selectModel = array[indexPath.row];
+         weakSelf.selectModel = self.itemArray[indexPath.row];
          [SSKJ_Default_AlertView showWithTitle:SSKJLocalized(@"删除地址", nil) message:SSKJLocalized(@"确认删除该地址吗？", nil) cancleTitle:SSKJLocalized(@"取消", nil) confirmTitle:SSKJLocalized(@"确定", nil) confirmBlock:^{
              [weakSelf deleteAddress];
          }];
@@ -168,15 +167,11 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
     return ScaleW(84);
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSArray *array;
-    if (self.walletType == WalletTypeOMNI) {
-        array = self.omniArray;
-    }else{
-        array = self.ercArray;
-    }
-    if (self.getAddressBlock) {
-        self.getAddressBlock(array[indexPath.row]);
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.getAddressBlock)
+    {
+        self.getAddressBlock(self.itemArray[indexPath.row]);
         [self.navigationController popViewControllerAnimated:YES];
     }
     
@@ -200,18 +195,34 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
     __weak typeof(self) weakSelf = self;
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
-    [[WLHttpManager shareManager]requestWithURL_HTTPCode:BI_AddressList_URL RequestType:RequestTypeGet Parameters:nil Success:^(NSInteger statusCode, id responseObject) {
+    NSString *type = @"1";
+    switch (self.walletType)
+    {
+        case WalletTypeOMNI:
+        {
+            type = @"1";
+        }
+            break;
+        case WalletTypeERC20:
+        {
+            type = @"2";
+        }
+            break;
+    }
+    
+    [[WLHttpManager shareManager]requestWithURL_HTTPCode:BI_AddressList_URL RequestType:RequestTypeGet Parameters:@{@"type":type} Success:^(NSInteger statusCode, id responseObject) {
         [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
 
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
         [weakSelf.tableView.mj_header endRefreshing];
-        if (netModel.status.integerValue == SUCCESSED) {
-
+        
+        if (netModel.status.integerValue == SUCCESSED)
+        {
             [weakSelf handleAddressListWithModel:netModel];
-            
             [weakSelf.HUD hideAnimated:YES];
-
-        } else {
+        }
+        else
+        {
             [MBProgressHUD showError:responseObject[@"msg"]];
             [weakSelf.HUD hideAnimated:YES];
         }
@@ -226,9 +237,8 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
 -(void)handleAddressListWithModel:(WL_Network_Model *)netModel
 {
     
-    self.omniArray = [ExtractAddress_IndexModel mj_objectArrayWithKeyValuesArray:[netModel.data firstObject][@"omni"]];
-    self.ercArray = [ExtractAddress_IndexModel mj_objectArrayWithKeyValuesArray:[netModel.data firstObject][@"erc20"]];
-        
+    NSArray *itemArray = [ExtractAddress_IndexModel mj_objectArrayWithKeyValuesArray:[netModel.data objectForKey:@"USDT"]];
+    [self.itemArray setArray:itemArray];
     [self.tableView reloadData];
 
 }

@@ -651,7 +651,9 @@ static NSString *nodaCellId = @"nodaCellId";
         {
             SSKJ_UserInfo_Model *userModel = [SSKJ_UserInfo_Model mj_objectWithKeyValues:network_Model.data];
             [[SSKJ_User_Tool sharedUserTool] setUserInfoModel:userModel];
-        }else{
+        }
+        else
+        {
             [MBProgressHUD showError:network_Model.msg];
         }
         

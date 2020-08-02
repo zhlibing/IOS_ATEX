@@ -12,10 +12,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ExtractAddress_IndexModel : NSObject
 @property (nonatomic, copy) NSString *ID;
-
+@property (nonatomic, copy) NSString *code;
 @property (nonatomic, copy) NSString *address;
 @property (nonatomic, copy) NSString *notes;
 @property (nonatomic, copy) NSString *type;
+
+
 
 @end
 

@@ -294,7 +294,7 @@
 {
     
     WS(weakSelf);
-    [[WLHttpManager shareManager]requestWithURL_HTTPCode:JBWallet_NewsHeader_URL RequestType:RequestTypePost Parameters:@{@"type":@"1",@"position":@3} Success:^(NSInteger statusCode, id responseObject)
+    [[WLHttpManager shareManager]requestWithURL_HTTPCode:JBWallet_NewsHeader_URL RequestType:RequestTypePost Parameters:@{@"type":@"1",@"position":@"3"} Success:^(NSInteger statusCode, id responseObject)
     {
         WL_Network_Model * netWorkModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
         

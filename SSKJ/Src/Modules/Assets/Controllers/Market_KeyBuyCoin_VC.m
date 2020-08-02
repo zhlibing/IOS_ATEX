@@ -271,7 +271,9 @@
             vc.title = SSKJLocalized(@"支付", nil);
             [weakSelf.navigationController pushViewController:vc animated:YES];
             
-        } else {
+        }
+        else
+        {
             [MBProgressHUD showError:net_model.msg];
         }
         

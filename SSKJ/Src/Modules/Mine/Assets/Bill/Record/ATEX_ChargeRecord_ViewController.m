@@ -164,7 +164,8 @@ static NSString *cellID = @"ChargeRecord_Cell";
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     WS(weakSelf);
     NSDictionary *params = @{
-                                @"page":@(self.page)
+                                @"page":@(self.page),
+                                @"pid":@"1"
                             };
 
     

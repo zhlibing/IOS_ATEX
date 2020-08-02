@@ -11,6 +11,12 @@
 #import "Home_Segment_View.h"
 #import "Mine_BindGoogle_AlertView.h"
 #import "ATEX_AssetRecord_ViewController.h"
+#import "RechargeModel.h"
+
+
+
+
+
 @interface Mine_Recharge_ViewController ()
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -22,7 +28,11 @@
 
 @property(nonatomic, strong)Home_Segment_View *segmentControl;
 @property(nonatomic, strong)UIView *segmentView;
-@property(nonatomic)NSInteger index;
+
+
+@property (nonatomic, strong) NSMutableArray *rechargeArray; //!< 充值数组
+
+
 
 @end
 
@@ -36,15 +46,14 @@
     [self setUI];
     
     [self addRightNavgationItemWithImage:UIImageNamed(@"充币--记录")];
-
-    self.index = 0;
+    
+    [self requestAddress];
 }
 
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self requestAddress];
 }
 
 - (void)rigthBtnAction:(id)sender{
@@ -55,17 +64,52 @@
 
 - (void)selectCoin:(NSInteger)index
 {
-    //选择的币种
-    if (index == 0)
+    switch (index)
     {
-        self.warnLabel.text = [NSString stringWithFormat:SSKJLocalized(@"请勿向上述地址充值任何非%@资产，否则资产将不可找回。 您充值至上述地址后，需要整个网络节点的确认，6次网络确认后 到账。 您可以在充值记录里查看充值状态！", nil), @"OMINI"];
-    }
-    else
-    {
-        self.warnLabel.text = [NSString stringWithFormat:SSKJLocalized(@"请勿向上述地址充值任何非%@资产，否则资产将不可找回。 您充值至上述地址后，需要整个网络节点的确认，6次网络确认后 到账。 您可以在充值记录里查看充值状态！", nil), @"ERC20"];
+        case 0:
+        {
+            WS(weakSelf);
+            [self.rechargeArray enumerateObjectsUsingBlock:^(RechargeModel *obj, NSUInteger idx, BOOL * _Nonnull stop)
+             {
+                NSString *code = [obj.code lowercaseString];
+                if ([code containsString:@"omni"])
+                {
+                    [weakSelf.chargeView setAddress:obj.address];
+                    [weakSelf.chargeView.qrCodeImageView sd_setImageWithURL:[NSURL URLWithString:obj.qrcode]];
+                    *stop = YES;
+                }
+                
+                
+            }];
+            
+            self.warnLabel.text = [NSString stringWithFormat:SSKJLocalized(@"请勿向上述地址充值任何非%@资产，否则资产将不可找回。 您充值至上述地址后，需要整个网络节点的确认，6次网络确认后 到账。 您可以在充值记录里查看充值状态！", nil), @"OMINI"];
+        }
+            break;
+        case 1:
+        {
+            
+            WS(weakSelf);
+            [self.rechargeArray enumerateObjectsUsingBlock:^(RechargeModel *obj, NSUInteger idx, BOOL * _Nonnull stop)
+             {
+                NSString *code = [obj.code lowercaseString];
+                if ([code containsString:@"erc20"])
+                {
+                    [weakSelf.chargeView setAddress:obj.address];
+                    [weakSelf.chargeView.qrCodeImageView sd_setImageWithURL:[NSURL URLWithString:obj.qrcode]];
+                    *stop = YES;
+                }
+                
+                
+            }];
+            
+            
+            
+            self.warnLabel.text = [NSString stringWithFormat:SSKJLocalized(@"请勿向上述地址充值任何非%@资产，否则资产将不可找回。 您充值至上述地址后，需要整个网络节点的确认，6次网络确认后 到账。 您可以在充值记录里查看充值状态！", nil), @"ERC20"];
+        }
+            break;
     }
     
-    [self requestAddress];
+    
     
 }
 
@@ -111,8 +155,8 @@
         [_segmentControl setBackgroundColor:kSubBgColor];
         
         WS(weakSelf);
-        _segmentControl.selectedIndexBlock = ^(NSInteger index) {
-            weakSelf.index = index;
+        _segmentControl.selectedIndexBlock = ^(NSInteger index)
+        {
             [weakSelf selectCoin:index];
             return YES;
         };
@@ -162,27 +206,56 @@
 }
 
 
+-(NSMutableArray <RechargeModel*> *)rechargeArray
+{
+    if (!_rechargeArray)
+    {
+        _rechargeArray = [[NSMutableArray alloc]init];
+    }
+    return _rechargeArray;
+}
+
+
+
+
+
 
 - (void)requestAddress {
     #pragma mark 处理
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     WS(weakSelf);
 
-    NSDictionary *params = @{
-                             @"type":@(self.index + 1),
-                             };
     
-    [[WLHttpManager shareManager]requestWithURL_HTTPCode:BI_RechargeAddr_URL RequestType:RequestTypePost Parameters:params Success:^(NSInteger statusCode, id responseObject) {
+    [[WLHttpManager shareManager]requestWithURL_HTTPCode:BI_RechargeAddr_URL RequestType:RequestTypeGet Parameters:nil Success:^(NSInteger statusCode, id responseObject)
+    {
         [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
-        if ([responseObject[@"code"] integerValue] == 200) {
-            NSString *address = responseObject[@"data"][@"address"];
-            weakSelf.chargeView.address = address;
-            [weakSelf.chargeView.qrCodeImageView sd_setImageWithURL:[SSTool imageURLWithURL:responseObject[@"data"][@"qrcode"]]];
+        if ([responseObject[@"code"] integerValue] == 200)
+        {
+            NSArray *itemArray = [responseObject objectForKey:@"data"];
             
-            NSData *imageData = [[NSData alloc] initWithBase64EncodedString:[responseObject[@"data"][@"qrcode"] stringByReplacingOccurrencesOfString:@"data:image/png;base64," withString:@""] options:NSDataBase64DecodingIgnoreUnknownCharacters];
-            weakSelf.chargeView.qrCodeImageView.image = [UIImage imageWithData:imageData];
-
-        }else{
+            for (NSDictionary *object in itemArray)
+            {
+                RechargeModel *model = [[RechargeModel alloc]init];
+                [model setAddress:[object objectForKey:@"address"]];
+                [model setCode:[object objectForKey:@"code"]];
+                [model setQrcode:[object objectForKey:@"qrcode"]];
+                [weakSelf.rechargeArray addObject:model];
+            }
+            
+            
+            [weakSelf.rechargeArray enumerateObjectsUsingBlock:^(RechargeModel *obj, NSUInteger idx, BOOL * _Nonnull stop)
+             {
+                NSString *code = [obj.code lowercaseString];
+                if ([code containsString:@"omni"])
+                {
+                    [weakSelf.chargeView setAddress:obj.address];
+                    [weakSelf.chargeView.qrCodeImageView sd_setImageWithURL:[NSURL URLWithString:obj.qrcode]];
+                    *stop = YES;
+                }
+            }];
+        }
+        else
+        {
             [MBProgressHUD showError:responseObject[@"msg"]];
         }
     } Failure:^(NSError *error, NSInteger statusCode, id responseObject) {

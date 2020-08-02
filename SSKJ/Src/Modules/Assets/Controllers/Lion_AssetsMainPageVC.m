@@ -193,12 +193,14 @@
 #pragma mark - 提币
 -(void)extractEvent
 {
-    if (!kLogin) {
+    if (!kLogin)
+    {
         [self presentLoginController];
         return;
     }
 
-    if (![self judgeFristCertificate]) {
+    if (![self judgeFristCertificate])
+    {
         return;
     }
 

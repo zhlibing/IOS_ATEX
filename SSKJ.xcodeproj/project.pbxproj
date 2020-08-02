@@ -439,6 +439,7 @@
 		963F517C24D59B9C00844D73 /* UIImage+YYWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 963F50EF24D59B9C00844D73 /* UIImage+YYWebImage.m */; };
 		963F517D24D59B9C00844D73 /* CALayer+YYWebImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 963F50F024D59B9C00844D73 /* CALayer+YYWebImage.m */; };
 		963F517E24D59B9C00844D73 /* YYWebImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 963F50F224D59B9C00844D73 /* YYWebImageOperation.m */; };
+		963F518D24D6F53B00844D73 /* RechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 963F518C24D6F53B00844D73 /* RechargeModel.m */; };
 		96759CED246D193E00C9432D /* Lion_AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 96759CEB246D193E00C9432D /* Lion_AboutUsVC.m */; };
 /* End PBXBuildFile section */
 
@@ -1347,6 +1348,8 @@
 		963F50F024D59B9C00844D73 /* CALayer+YYWebImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CALayer+YYWebImage.m"; sourceTree = "<group>"; };
 		963F50F124D59B9C00844D73 /* YYWebImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYWebImage.h; sourceTree = "<group>"; };
 		963F50F224D59B9C00844D73 /* YYWebImageOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYWebImageOperation.m; sourceTree = "<group>"; };
+		963F518B24D6F53B00844D73 /* RechargeModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RechargeModel.h; sourceTree = "<group>"; };
+		963F518C24D6F53B00844D73 /* RechargeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeModel.m; sourceTree = "<group>"; };
 		96759CEB246D193E00C9432D /* Lion_AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lion_AboutUsVC.m; path = "SSKJ/Src/Modules/Mine/Main/¹ØÓÚÎÒÃÇ/Lion_AboutUsVC.m"; sourceTree = SOURCE_ROOT; };
 		96759CEC246D193E00C9432D /* Lion_AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lion_AboutUsVC.h; path = "SSKJ/Src/Modules/Mine/Main/¹ØÓÚÎÒÃÇ/Lion_AboutUsVC.h"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -1889,6 +1892,8 @@
 				3A08BFAD234C5D360086ED0F /* Mine_RechargeTop_View.m */,
 				3A08BFC2234C5D360086ED0F /* Mine_Recharge_ViewController.h */,
 				3A08BFC3234C5D360086ED0F /* Mine_Recharge_ViewController.m */,
+				963F518B24D6F53B00844D73 /* RechargeModel.h */,
+				963F518C24D6F53B00844D73 /* RechargeModel.m */,
 			);
 			path = Recharge;
 			sourceTree = "<group>";
@@ -3698,6 +3703,7 @@
 				3A08C2FC234C5D380086ED0F /* UIViewController+SSKJ.m in Sources */,
 				963F50FC24D59B9C00844D73 /* NSObject+MJCoding.m in Sources */,
 				3A08C302234C5D380086ED0F /* ManagerSocket.m in Sources */,
+				963F518D24D6F53B00844D73 /* RechargeModel.m in Sources */,
 				065BD19E24497CBA00FB4F65 /* BuyCoin_TableViewCell.m in Sources */,
 				439DEEBB2399279400B2C07B /* ETF_BBTrade_IntroductHeaderView.m in Sources */,
 				963F510024D59B9C00844D73 /* NSString+MJExtension.m in Sources */,

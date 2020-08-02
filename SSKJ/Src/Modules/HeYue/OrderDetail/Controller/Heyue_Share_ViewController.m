@@ -48,7 +48,9 @@
     
     NSString *language = [SSKJLocalized sharedInstance].currentLanguage;
     NSString *lanType = @"1";
-    if ([language isEqualToString:@"en"]) {
+    
+    if ([language isEqualToString:@"en"])
+    {
         lanType = @"2";
     }
     NSDictionary *params = @{
@@ -58,17 +60,22 @@
     
     WS(weakSelf);
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[WLHttpManager shareManager]requestWithURL_HTTPCode:HEYUE_Share_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject) {
+    [[WLHttpManager shareManager]requestWithURL_HTTPCode:HEYUE_Share_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject)
+    {
         [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-        if (netModel.status.integerValue == SUCCESSED) {
+        
+        if (netModel.status.integerValue == SUCCESSED)
+        {
             NSString *imageURL = netModel.data;
             
             [weakSelf.imageView sd_setImageWithURL:[NSURL URLWithString:[WLTools imageURLWithURL:imageURL]]];
             [weakSelf addRightNavItemWithTitle:SSKJLocalized(@"保存", nil) color:kTitleColor font:systemFont(ScaleW(14))];
 
             
-        }else{
+        }
+        else
+        {
             [MBProgressHUD showError:netModel.msg];
         }
                 
