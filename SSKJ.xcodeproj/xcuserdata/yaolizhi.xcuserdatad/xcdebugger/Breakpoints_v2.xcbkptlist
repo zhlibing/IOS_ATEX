@@ -23,16 +23,48 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "AABA8365-933C-4624-A9A6-D37820B3A9FA"
+            uuid = "99E79C68-A451-449E-B394-F612DD6343F4"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "SSKJ/Src/Modules/Mine/Invite/Generalize/Controller/My_Generalize_RootViewController.m"
+            filePath = "SSKJ/Src/Modules/Mine/Invite/Generalize/Controller/My_PromoteDetail_ViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "346"
-            endingLineNumber = "346"
-            landmarkName = "-analyzeModel:"
+            startingLineNumber = "171"
+            endingLineNumber = "171"
+            landmarkName = "-handleDataWithNetModel:"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6FCA2668-F1C3-478D-84C0-BA00F7048E3F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SSKJ/Src/Modules/HeYue/OrderDetail/Controller/Heyue_CengJiao_Order_VC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "173"
+            endingLineNumber = "173"
+            landmarkName = "-requestChengJiaoOrder_URL"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A919D631-804F-4CC9-A7B2-270CB41E3090"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SSKJ/Src/Modules/HeYue/OrderDetail/Controller/Heyue_ChiCang_Order_VC.m"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "418"
+            endingLineNumber = "418"
+            landmarkName = "-handleExchangeListWithModel:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

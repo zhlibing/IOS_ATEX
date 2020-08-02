@@ -90,22 +90,8 @@
 
 -(void)setCellWithModel:(My_Promote_Index_Model *)model
 {
-    self.nameLabel.text = model.name.length > 0 ? model.name:@"--";
-    
-    if (model.phone.length > 0)
-    {
-        self.contactLabel.text = [WLTools hidePhoneMiddleNumberWithMobile:model.phone];
-        
-    }
-    else if (model.email.length >0)
-    {
-        self.contactLabel.text = [WLTools hideEmailWithEmail:model.email];
-    }
-    else
-    {
-        [self.contactLabel setText:@"--"];
-    }
- 
+    self.nameLabel.text = model.con.length > 0 ? model.con:@"--";
+    [self.contactLabel setText:model.account];
     self.timeLabel.text = model.created_at;
     
 }

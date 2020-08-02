@@ -76,13 +76,18 @@
 
 - (void)setCellWithModel:(My_Yuanli_Model *)model
 {
-    if (model.type.integerValue == 1) {
+    if (model.type.integerValue == 1)
+    {
         self.typeLabel.text = SSKJLocalized(@"邀请返佣", nil);
-    }else{
+    }
+    else
+    {
         self.typeLabel.text = SSKJLocalized(@"自身返佣", nil);
     }
     
-    self.numLabel.text = [NSString stringWithFormat:@"%@ USDT",[WLTools noroundingStringWith:model.recommend_yongjin.doubleValue afterPointNumber:6]];
+    [self.typeLabel setText:model.mark];
+    
+    self.numLabel.text = [NSString stringWithFormat:@"%@ %@",[WLTools noroundingStringWith:model.num.doubleValue afterPointNumber:6],model.code];
     
     self.timeLabel.text = model.created_at;
 }

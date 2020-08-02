@@ -11,11 +11,14 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface My_Promote_Index_Model : NSObject
+
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *phone;
 @property (nonatomic, copy) NSString *email;
 @property (nonatomic, copy) NSString *created_at;
+@property (nonatomic, copy) NSString *con;  //!< 名称
 @property (nonatomic, copy) NSString *account;//账号
+
 
 
 //id": "286",
