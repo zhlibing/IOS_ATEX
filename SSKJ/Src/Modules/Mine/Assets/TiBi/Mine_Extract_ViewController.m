@@ -288,7 +288,7 @@
 // 点击全部
 -(void)allEvent
 {
-    double allTibi = self.infoModel.balance.doubleValue - self.infoModel.handling_fee.doubleValue;
+    double allTibi = self.infoModel.balance.doubleValue - self.infoModel.fee.doubleValue;
     
     if (allTibi < 0) {
         allTibi = 0;
@@ -383,17 +383,17 @@
         return;
     }
     
-    if (self.numberTextField.text.doubleValue < self.infoModel.withdraw_min.doubleValue) {
-        [MBProgressHUD showError:[NSString stringWithFormat:SSKJLocalized(@"最小提币数量%@ USDT", nil),[WLTools noroundingStringWith:self.infoModel.withdraw_min.doubleValue afterPointNumber:2]]];
+    if (self.numberTextField.text.doubleValue < self.infoModel.min.doubleValue) {
+        [MBProgressHUD showError:[NSString stringWithFormat:SSKJLocalized(@"最小提币数量%@ USDT", nil),[WLTools noroundingStringWith:self.infoModel.min.doubleValue afterPointNumber:2]]];
         return;
     }
     
-    if (self.numberTextField.text.doubleValue > self.infoModel.withdraw_max.doubleValue) {
-        [MBProgressHUD showError:[NSString stringWithFormat:SSKJLocalized(@"最大提币数量%@ USDT", nil),[WLTools noroundingStringWith:self.infoModel.withdraw_max.doubleValue afterPointNumber:2]]];
+    if (self.numberTextField.text.doubleValue > self.infoModel.max.doubleValue) {
+        [MBProgressHUD showError:[NSString stringWithFormat:SSKJLocalized(@"最大提币数量%@ USDT", nil),[WLTools noroundingStringWith:self.infoModel.max.doubleValue afterPointNumber:2]]];
         return;
     }
     
-    if (self.numberTextField.text.doubleValue + self.infoModel.handling_fee.doubleValue > self.infoModel.balance.doubleValue) {
+    if (self.numberTextField.text.doubleValue + self.infoModel.fee.doubleValue > self.infoModel.balance.doubleValue) {
         [MBProgressHUD showError:SSKJLocalized(@"余额不足", nil)];
         return;
     }
@@ -409,13 +409,17 @@
 {
     WS(weakSelf);
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [[WLHttpManager shareManager]requestWithURL_HTTPCode:BI_ExtractInfo_URL RequestType:RequestTypeGet Parameters:nil Success:^(NSInteger statusCode, id responseObject) {
+    [[WLHttpManager shareManager]requestWithURL_HTTPCode:BI_ExtractInfo_URL RequestType:RequestTypeGet Parameters:nil Success:^(NSInteger statusCode, id responseObject)
+    {
         [MBProgressHUD hideHUDForView:weakSelf.view animated:YES];
         WL_Network_Model *net_model = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-        if (net_model.status.integerValue == SUCCESSED) {
-            weakSelf.infoModel = [Mine_AssetTiBiInfo_Model mj_objectWithKeyValues:net_model.data];
+        if (net_model.status.integerValue == SUCCESSED)
+        {
+            weakSelf.infoModel = [Mine_AssetTiBiInfo_Model mj_objectWithKeyValues:[net_model.data firstObject]];
             [weakSelf resetView];
-        }else{
+        }
+        else
+        {
             [MBProgressHUD showError:net_model.msg];
         }
         
@@ -429,7 +433,7 @@
 {
     self.usableLabel.text = [NSString stringWithFormat:SSKJLocalized(@"可用 %@ USDT", nil),[WLTools noroundingStringWith:self.infoModel.balance.doubleValue afterPointNumber:2]];
     
-    self.warningLabel.text = [NSString stringWithFormat: SSKJLocalized(@"手续费:%@ USDT/次 最小提币数量为 %@ USDT 请确定目标提币地址是否存在且被激活，否则将会导致提币失败，且资产不可找回。", nil),[WLTools noroundingStringWith:self.infoModel.handling_fee.doubleValue afterPointNumber:2],[WLTools noroundingStringWith:self.infoModel.withdraw_min.doubleValue afterPointNumber:2]];
+    self.warningLabel.text = [NSString stringWithFormat: SSKJLocalized(@"手续费:%@ USDT/次 最小提币数量为 %@ USDT 请确定目标提币地址是否存在且被激活，否则将会导致提币失败，且资产不可找回。", nil),[WLTools noroundingStringWith:self.infoModel.fee.doubleValue afterPointNumber:2],[WLTools noroundingStringWith:self.infoModel.min.doubleValue afterPointNumber:2]];
     
     CGFloat height = [self.warningLabel.text boundingRectWithSize:CGSizeMake(self.warningLabel.width, 10000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:self.warningLabel.font} context:nil].size.height;
     self.warningLabel.height = height;
@@ -443,9 +447,12 @@
 
 -(BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-    if (textField == self.numberTextField){
+    if (textField == self.numberTextField)
+    {
         return [textField textFieldShouldChangeCharactersInRange:range replacementString:string dotNumber:2];
-    }else{
+    }
+    else
+    {
         return YES;
     }
 }
@@ -455,11 +462,13 @@
 {
     self.numberTextField.text = [self deleteFirstZero:self.numberTextField.text];
     
-    double shijiNumber = self.numberTextField.text.doubleValue;
+    double shijiNumber = (self.numberTextField.text.doubleValue - self.infoModel.fee.doubleValue);
     
-    if (shijiNumber < 0) {
+    if (shijiNumber < 0)
+    {
         shijiNumber = 0;
     }
+    
     
     NSString *shijiString = [WLTools noroundingStringWith:shijiNumber afterPointNumber:2];
     
@@ -487,14 +496,13 @@
 
 -(void)requestExtractWithPWD:(NSString *)pwd smsCode:(NSString *)smsCode
 {
-    NSInteger type = (NSInteger)self.walletType + 1;
     NSDictionary *params = @{
                             @"money":self.numberTextField.text,
 //                            @"payment_password":[WLTools encryWithString:pwd],
                             @"payment_password":pwd,
                             @"code":smsCode,
                             @"address":self.addressTextField.text,
-                            @"type":@(type)
+                            @"type":@"1"
                             };
     
     WS(weakSelf);

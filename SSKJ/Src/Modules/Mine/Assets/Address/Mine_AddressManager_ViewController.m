@@ -34,9 +34,6 @@ static NSString *cellID = @"Mine_AddressList_TableViewCell";
 {
     [super viewDidLoad];
     self.title = SSKJLocalized(@"提币地址", nil);
-    
-//    self.walletType = WalletTypeOMNI;
-    
     [self setWalletType:self.walletType];
     [self setupUI];
 }
