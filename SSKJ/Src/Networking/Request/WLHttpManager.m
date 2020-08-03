@@ -89,9 +89,12 @@
     NSString *Accept = @"application/json";
     
     NSString *loginType;
-    if ([RegularExpression validateEmail:kAccount]) {
+    if ([RegularExpression validateEmail:kAccount])
+    {
         loginType = @"email";
-    }else{
+    }
+    else
+    {
         loginType = @"phone";
     }
 
