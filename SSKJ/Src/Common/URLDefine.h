@@ -16,23 +16,6 @@
 #define KSocketLongNofication @"KSocketLongNofication"
 
 
-
-
-
-#define  模拟
-
-
-
-
-//#define ProductBaseServer  @"https://dev.atex.kim"
-//
-//#define ImageBaseServer  @"http://atex001.oss-cn-hongkong.aliyuncs.com"
-//
-//#define MarketSocketUrl @"ws://47.240.225.31:7272"
-
-
-
-
 #define 正式
 
 

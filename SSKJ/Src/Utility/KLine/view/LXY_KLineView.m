@@ -38,6 +38,8 @@
 
 
 
+
+
 @interface LXY_KLineView ()<UIScrollViewDelegate,LXY_KLine_MineView_Porotcol,LXY_KLine_VolumeView_Porotcol,LXY_KLine_Accessory_Porotcol>
 
 @property (nonatomic, strong) UIScrollView *scrollView;
@@ -109,6 +111,9 @@
 @property (nonatomic, copy) NSString *formatterString;
 
 @property (nonatomic, assign) LXY_KLINETYPE klineType;
+
+
+@property (nonatomic, copy) NSString *volume; //!< 24小时量
 
 
 @end
@@ -554,6 +559,10 @@
 {
     LXY_KLine_DataModel *lastModel = self.dataSource.lastObject;
     
+    if ([lastModel.volume floatValue] > 0)
+    {
+        [self setVolume:lastModel.volume];
+    }
     
     NSDate *lastDate1 = [NSDate dateWithTimeIntervalSince1970:(lastModel.timestamp.doubleValue)];
     
@@ -561,6 +570,7 @@
     
     NSTimeInterval second = [socketDate timeIntervalSinceDate:lastDate1];
     
+    socketModel.volume = self.volume;
     if (second / 60 >= minuteInvital && minuteInvital != 0) {
         
         [self.dataSource addObject:socketModel];
@@ -579,9 +589,13 @@
             lastModel.high = socketModel.price;
         }
         
+        
+        
+        
         lastModel.buy = socketModel.buy;
         lastModel.sell = socketModel.sell;
         lastModel.volume = socketModel.volume;
+        
         
         self.kLine_MainView.dataSource = self.dataSource;
         self.kLine_VolumeView.dataSource = self.dataSource;

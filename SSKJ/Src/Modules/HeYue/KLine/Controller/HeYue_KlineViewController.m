@@ -621,9 +621,11 @@ static NSString *marketSocketIdentifier = @"maekSocketIdentifier";
             self.bbTradebutton.backgroundColor = KgreenColor;
         }
 
-    }else if ([identifier isEqualToString:klineSocketIdentifier]){
+    }else if ([identifier isEqualToString:klineSocketIdentifier])
+    {
                 
-        if ([dic[@"code"] isEqualToString:self.coinModel.code]) {
+        if ([dic[@"code"] isEqualToString:self.coinModel.code])
+        {
             LXY_KLine_DataModel *model = [LXY_KLine_DataModel mj_objectWithKeyValues:dic];
             
             model.high = dic[@"high"];
@@ -632,7 +634,6 @@ static NSString *marketSocketIdentifier = @"maekSocketIdentifier";
             model.close = [dic[@"close"] stringValue];
             model.price = [dic[@"close"] stringValue];
             model.timestamp =  dic[@"timestamp"];
-            model.volume = dic[@"volume"];
             [self.kLineView refreshWithSocketData:model minuteInvital:currentModel.minute];
             [self.kLineView setCurrentPrice:model.price];
         }

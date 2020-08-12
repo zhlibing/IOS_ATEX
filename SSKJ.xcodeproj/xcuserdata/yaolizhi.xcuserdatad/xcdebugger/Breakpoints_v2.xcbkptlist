@@ -286,8 +286,8 @@
             filePath = "SSKJ/Src/Utility/KLine/view/LXY_KLineView.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "558"
-            endingLineNumber = "558"
+            startingLineNumber = "567"
+            endingLineNumber = "567"
             landmarkName = "-refreshWithSocketData:minuteInvital:"
             landmarkType = "7">
          </BreakpointContent>
