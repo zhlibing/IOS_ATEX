@@ -236,13 +236,18 @@
     
     NSInteger status = model.status.integerValue;
     
-    if (status == 0 || status == 1) {
+    if (status == 0 || status == 1)
+    {
         self.statusLabel.text = SSKJLocalized(@"审核中", nil);
         self.statusLabel.textColor = UIColorFromRGB(0x2FE091);
-    }else  if (status == 3 || status == 5){
+    }
+    else  if (status == 3 || status == 5)
+    {
         self.statusLabel.text = SSKJLocalized(@"审核失败", nil);
         self.statusLabel.textColor = UIColorFromRGB(0xFF5E66);
-    }else if (status == 4){
+    }
+    else if (status == 4)
+    {
         self.statusLabel.text = SSKJLocalized(@"提币成功", nil);
         self.statusLabel.textColor = kBlueColor;
     }

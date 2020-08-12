@@ -55,15 +55,20 @@
 
 }
 
-- (void)backBtnAction {
+- (void)backBtnAction
+{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)commitBtnAction {
-    if (self.accountView.field.text.length == 0) {
+- (void)commitBtnAction
+{
+    if (self.accountView.field.text.length == 0)
+    {
         [MBProgressHUD showError:@"请输入账号"];
         return;
     }
+    
+    
     
     WS(weakSelf);
     NSDictionary *params = @{@"account":self.accountView.field.text};

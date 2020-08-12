@@ -251,6 +251,18 @@ typedef NS_ENUM(NSUInteger, PhotoType) {
         return;
     }
     
+    if (!self.frontImage)
+    {
+        [MBProgressHUD showError:SSKJLanguage(@"证件正面照片")];
+        return;
+    }
+    
+    if (!self.backImage)
+    {
+        [MBProgressHUD showError:SSKJLanguage(@"证件背面照片")];
+        return;
+    }
+    
     
     [self requestPrimaryCertificate:name withIDentity:idNumber];
 }

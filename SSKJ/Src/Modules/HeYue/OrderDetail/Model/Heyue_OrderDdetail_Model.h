@@ -79,6 +79,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic,copy) NSString * fee;
 
+/**
+ 开仓手续费
+ */
+@property (nonatomic, copy) NSString *kcsxf;
 
 
 /**

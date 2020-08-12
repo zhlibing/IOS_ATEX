@@ -308,12 +308,14 @@
         [params setObject:kUserID forKey:@"id"];
         [params setObject:email forKey:@"account"];
         [params setObject:code forKey:@"code"];
-        [params setObject:[WLTools md5:pwd] forKey:@"dealPswd"];
-    } else {
+        [params setObject:pwd forKey:@"dealPswd"];
+    }
+    else
+    {
         url = BI_UpdataTelOrEmail_URL;
         [params setObject:kUserID forKey:@"id"];
         [params setObject:email forKey:@"account"];
-        [params setObject:[WLTools md5:pwd] forKey:@"tradePswd"];
+        [params setObject:pwd forKey:@"tradePswd"];
     }
     
     [[WLHttpManager shareManager]requestWithURL_HTTPCode:url RequestType:RequestTypePost Parameters:params Success:^(NSInteger statusCode, id responseObject) {

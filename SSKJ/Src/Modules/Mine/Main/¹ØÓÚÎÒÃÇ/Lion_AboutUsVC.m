@@ -87,11 +87,16 @@
 - (void) clickCell:(UITapGestureRecognizer *)sender{
     UIView *view = sender.view;
     SSKJ_Protocol_ViewController *protocol = [[SSKJ_Protocol_ViewController alloc]init];
-    if (view.tag == 0) {
+    if (view.tag == 0)
+    {
         protocol.type = @"4";
-    }else if (view.tag == 1){
-        protocol.type = @"10";
-    }else if (view.tag == 2){
+    }
+    else if (view.tag == 1)
+    {
+        protocol.type = @"9";
+    }
+    else if (view.tag == 2)
+    {
         protocol.type = @"3";
     }
     

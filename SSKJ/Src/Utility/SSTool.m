@@ -97,7 +97,7 @@
 
 + (NSString *)myAreaCode{
     NSString *area = [self getStringByKey:@"myAreaCode"];
-    return area.length ? area : @"86";
+    return area.length ? area : @"+86";
 }
 
 

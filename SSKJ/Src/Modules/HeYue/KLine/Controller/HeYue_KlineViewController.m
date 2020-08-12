@@ -383,7 +383,7 @@ static NSString *marketSocketIdentifier = @"maekSocketIdentifier";
                 
             }
         
-            NSString *string = [NSString stringWithFormat:@"%@@%@",str,weakSelf.coinModel.code];
+            NSString *string = [NSString stringWithFormat:@"ticker@%@",weakSelf.coinModel.code];
             
             NSString *type = [WLTools wlDictionaryToJson:@{@"sub":string}];
             [weakSelf.klineSocket socketSendMsg:type];

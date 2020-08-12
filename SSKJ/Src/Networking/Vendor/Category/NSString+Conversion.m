@@ -386,4 +386,45 @@
 
 
 
+
+#pragma mark MD5循环加密5次
++(NSString *)repeatMd5:(NSString *)str;
+{
+    if (!str.length)
+    {
+        return @"";
+    }
+    
+    
+        for (int i =0; i <2; i++)
+        {
+            str = [self md5String:str];
+        }
+    
+    
+    
+    return str;
+}
+
++ (NSString *)md5String:(NSString *)sender
+{
+    const char *str = sender.UTF8String;
+    uint8_t buffer[CC_MD5_DIGEST_LENGTH];
+    
+    CC_MD5(str, (CC_LONG)strlen(str), buffer);
+    
+    return [self stringFromBytes:buffer length:CC_MD5_DIGEST_LENGTH];
+}
+
++ (NSString *)stringFromBytes:(uint8_t *)bytes length:(int)length {
+    NSMutableString *strM = [NSMutableString string];
+    
+    for (int i = 0; i < length; i++) {
+        [strM appendFormat:@"%02x", bytes[i]];
+    }
+    
+    return [strM copy];
+}
+
+
 @end

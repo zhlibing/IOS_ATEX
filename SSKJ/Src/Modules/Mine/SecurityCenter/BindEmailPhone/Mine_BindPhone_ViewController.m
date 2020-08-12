@@ -71,7 +71,7 @@
     [super viewDidLoad];
     self.view.backgroundColor = kBgColor;
     
-    self.areaCode = @"86";
+    self.areaCode = @"+86";
 
     self.title = SSKJLocalized(@"绑定手机号", nil);
 
@@ -515,13 +515,13 @@
         [params setObject:kUserID forKey:@"id"];
         [params setObject:phone forKey:@"account"];
         [params setObject:code forKey:@"code"];
-        [params setObject:[WLTools md5:pwd] forKey:@"dealPswd"];
+        [params setObject:pwd forKey:@"dealPswd"];
         [params setObject:self.areaCode forKey:@"areaCode"];
     } else {
         url = BI_UpdataTelOrEmail_URL;
         [params setObject:kUserID forKey:@"id"];
         [params setObject:phone forKey:@"account"];
-        [params setObject:[WLTools md5:pwd] forKey:@"tradePswd"];
+        [params setObject:pwd forKey:@"tradePswd"];
     }
     
     [[WLHttpManager shareManager]requestWithURL_HTTPCode:url RequestType:RequestTypePost Parameters:params Success:^(NSInteger statusCode, id responseObject) {

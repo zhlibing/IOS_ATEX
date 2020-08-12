@@ -52,4 +52,9 @@
 +(NSString*)formateString:(NSString*)string decimalCount:(NSInteger)decimalCOunt;
 
 +(NSString *)hidePhoneMiddleNumberWithMobile:(NSString *)mobile;
+
+
+#pragma mark MD5循环加密5次
++(NSString *)repeatMd5:(NSString *)str;
+
 @end

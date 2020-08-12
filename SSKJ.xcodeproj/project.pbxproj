@@ -4263,7 +4263,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 6D5Q4H7PDR;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SSKJ/Src/Common/PrefixHeader.pch";
@@ -4273,7 +4273,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ATEX.soft;
 				PRODUCT_NAME = ATEX;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4291,7 +4291,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 9;
 				DEVELOPMENT_TEAM = 2VZPDQKTU8;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SSKJ/Src/Common/PrefixHeader.pch";
@@ -4301,7 +4301,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.5;
+				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ATEX.soft;
 				PRODUCT_NAME = ATEX;
 				PROVISIONING_PROFILE_SPECIFIER = "";

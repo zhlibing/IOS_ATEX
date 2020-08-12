@@ -55,19 +55,19 @@
             
         self.titleLabel.text = self.model.title;
         [self.webView loadHTMLString:self.model.content baseURL:[NSURL URLWithString:ProductBaseServer]];
-        self.dataLabel.text = self.model.updated_at;
+        self.dataLabel.text = self.model.created_at;
         
     }else if (self.detailType == DetailTypeNews){
         self.title = SSKJLocalized(@"资讯详情", nil);
         self.titleLabel.text=self.newsModel.title;
-        self.dataLabel.text = self.newsModel.updated_at;
+        self.dataLabel.text = self.newsModel.created_at;
         [self.webView loadHTMLString:self.newsModel.content baseURL:[NSURL URLWithString:ProductBaseServer]];
         
     }else if (self.detailType == DetailTypeNotice)
     {
         self.title = SSKJLocalized(@"公告详情", nil);
         self.titleLabel.text=self.model.title;
-        self.dataLabel.text = self.model.updated_at;
+        self.dataLabel.text = self.model.created_at;
         [self.webView loadHTMLString:self.model.content baseURL:[NSURL URLWithString:ProductBaseServer]];
 
     }

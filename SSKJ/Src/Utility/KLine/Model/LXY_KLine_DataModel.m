@@ -16,8 +16,20 @@
              @"close": @"closingPrice",
              @"high": @"highestPrice",
              @"low": @"lowestPrice",
+             @"price":@"closingPrice",
              };
 }
+
+- (void)setTimestamp:(NSString *)timestamp
+{
+    _timestamp = [NSString stringWithFormat:@"%@",timestamp];
+    if (_timestamp.length > 10)
+    {
+        _timestamp = [_timestamp substringToIndex:10];
+    }
+ 
+}
+
 
 -(void)setData
 {

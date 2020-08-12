@@ -27,7 +27,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy) NSString *refuse_reason;  // 高级认证拒绝原因
 @property (nonatomic, copy) NSString *card_id;  // 身份证号
 
-@property (nonatomic, copy) NSString *authentication;  //认证状态 0未认证 2待审核 3通过 4拒绝
+@property (nonatomic, copy) NSString *authentication;  //认证状态 0未认证  2待审核 3通过 4拒绝
 @property (nonatomic, strong) UserInfoAssetModel *assets;  // 账户资产信息
 @property (nonatomic, strong) UserInfoConfigModel *config;  // 安全信息
 

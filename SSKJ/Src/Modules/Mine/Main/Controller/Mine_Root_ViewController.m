@@ -463,13 +463,18 @@
     }else{
         
         NSInteger status = [SSKJ_User_Tool sharedUserTool].userInfoModel.authentication.integerValue;
-        if (status == 0) {
+        if (status == 0 || status == 1)
+        {
              Mine_PrimaryCertificate_ViewController *vc = [[Mine_PrimaryCertificate_ViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
-        }else if (status == 3 || status == 4){
+        }
+        else if (status == 3 || status == 4)
+        {
             Mine_CertificationState_ViewController *vc = [[Mine_CertificationState_ViewController alloc]init];
             [self.navigationController pushViewController:vc animated:YES];
-        }else{
+        }
+        else
+        {
             [MBProgressHUD showError:SSKJLocalized(@"您的身份认证正在审核，请耐心等待！", nil)];
         }
         

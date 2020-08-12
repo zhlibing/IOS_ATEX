@@ -554,37 +554,28 @@
 {
     LXY_KLine_DataModel *lastModel = self.dataSource.lastObject;
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    [formatter setDateFormat:@"yyyy-MM-dd HH:mm"];
     
-    NSDate *lastDate = [NSDate dateWithTimeIntervalSince1970:lastModel.timestamp.doubleValue];
+    NSDate *lastDate1 = [NSDate dateWithTimeIntervalSince1970:(lastModel.timestamp.doubleValue)];
     
-    NSString *lastDateString = [formatter stringFromDate:lastDate];
-    NSDate *lastDate1 = [formatter dateFromString:lastDateString];
-    
-    NSDate *socketDate = [NSDate dateWithTimeIntervalSince1970:socketModel.timestamp.doubleValue];
+    NSDate *socketDate = [NSDate dateWithTimeIntervalSince1970:(socketModel.timestamp.doubleValue)];
     
     NSTimeInterval second = [socketDate timeIntervalSinceDate:lastDate1];
     
     if (second / 60 >= minuteInvital && minuteInvital != 0) {
         
-//        socketModel.open = socketModel.price;
-//        socketModel.close = socketModel.price;
-//        socketModel.high = socketModel.price;
-//        socketModel.low = socketModel.price;
-//        socketModel.timestamp = socketModel.timestamp;
-//
-//        socketModel.volume = lastModel.volume;
         [self.dataSource addObject:socketModel];
         
         [self startDrawView];
-    }else{
+    }
+    else
+    {
         lastModel.close = socketModel.price;
         if (lastModel.low.doubleValue > socketModel.price.doubleValue) {
             lastModel.low = socketModel.price;
         }
         
-        if (lastModel.high.doubleValue < socketModel.price.doubleValue) {
+        if (lastModel.high.doubleValue < socketModel.price.doubleValue)
+        {
             lastModel.high = socketModel.price;
         }
         

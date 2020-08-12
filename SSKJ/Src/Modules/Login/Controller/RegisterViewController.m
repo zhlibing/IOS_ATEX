@@ -352,14 +352,15 @@
         return;
     }
     
-//    [WLTools encryWithString:self.pwdBgView.textField.text]
     
-    NSDictionary *params = @{@"area_code":@"86",
+    
+    NSDictionary *params = @{@"area_code":@"+86",
                             account:self.accountVGView.textField.text,
                             @"code":self.codetextField.text,
                             @"recommend":self.yaoqingBgView.textField.text,
                             @"password":self.pwdBgView.textField.text,
-                            @"password_confirmation":self.twoPwdBgView.textField.text,
+                            @"password_confirmation":
+                                 self.twoPwdBgView.textField.text,
                             };
     
     

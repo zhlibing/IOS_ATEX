@@ -686,7 +686,7 @@
     self.gangganLabel.text = chicangModel.leverage;
     
     //手续费
-    self.shoufufeiLabel.text = [SSTool HeyuePname:chicangModel.code price:chicangModel.fee];
+    self.shoufufeiLabel.text = [SSTool HeyuePname:chicangModel.code price:chicangModel.kcsxf];
     
     
     //保证金

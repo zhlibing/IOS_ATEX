@@ -93,10 +93,8 @@
         params = @{
             @"email":self.account,
             @"code":self.accountView.textField.text,
-//            @"password":[WLTools encryWithString:self.passView.textField.text]
             @"password":self.passView.textField.text,
-//            @"password_confirmation":[WLTools encryWithString:self.againView.textField.text],
-            @"password":self.againView.textField.text,
+            @"password_confirmation":self.againView.textField.text,
         };
     }
     else
@@ -104,8 +102,8 @@
         params = @{
             @"phone":self.account,
             @"code":self.accountView.textField.text,
-            @"password":self.passView.textField.text/*[WLTools encryWithString:self.passView.textField.text]*/,
-            @"password_confirmation":self.againView.textField.text/*[WLTools encryWithString:self.againView.textField.text]*/,
+            @"password":self.passView.textField.text,
+            @"password_confirmation":self.againView.textField.text,
 
         };
     }

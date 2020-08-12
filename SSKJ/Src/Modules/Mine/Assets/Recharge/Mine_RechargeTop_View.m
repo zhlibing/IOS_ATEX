@@ -278,7 +278,7 @@
 {
     if (nil == _warnTipLabel)
     {
-        _warnTipLabel = [FactoryUI createLabelWithFrame:CGRectZero text:SSKJLocalized(@"为了您的使用更安全、快捷，请您充值完成后务必把您的账号，金额发给客服审核.", nil) textColor:[UIColor redColor] font:systemBoldFont((ScaleW(13)))];
+        _warnTipLabel = [FactoryUI createLabelWithFrame:CGRectZero text:@"" textColor:[UIColor redColor] font:systemBoldFont((ScaleW(13)))];
         _warnTipLabel.numberOfLines = 0;
 
 

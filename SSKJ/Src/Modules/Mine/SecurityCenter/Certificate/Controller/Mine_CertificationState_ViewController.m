@@ -81,12 +81,15 @@
     
     BOOL isSuccess = ([SSKJ_User_Tool sharedUserTool].userInfoModel.authentication.integerValue == 3);
     
-    if (isSuccess) {
+    if (isSuccess)
+    {
         self.imageView.image = MyImage(@"mine_auth_s");
         self.statusLabel.text = SSKJLocalized(@"已实名认证成功", nil);
         self.reasonLabel.hidden = YES;
         self.button.hidden = YES;
-    }else{
+    }
+    else
+    {
         self.imageView.image = MyImage(@"mine_auth_f");
         NSString *text = SSKJLocalized(@"认证失败，请重新认证", nil);
         

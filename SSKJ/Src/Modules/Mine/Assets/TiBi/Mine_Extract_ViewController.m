@@ -498,7 +498,6 @@
 {
     NSDictionary *params = @{
                             @"money":self.numberTextField.text,
-//                            @"payment_password":[WLTools encryWithString:pwd],
                             @"payment_password":pwd,
                             @"code":smsCode,
                             @"address":self.addressTextField.text,

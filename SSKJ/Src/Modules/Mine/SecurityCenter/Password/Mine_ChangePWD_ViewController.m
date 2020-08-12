@@ -314,8 +314,6 @@
     }else{
         [params setObject:kAccount forKey:@"phone"];
     }
-//    [params setObject:[WLTools encryWithString:self.pwdView.valueString] forKey:@"password"];
-//    [params setObject:[WLTools encryWithString:self.surePwdView.valueString] forKey:@"password_confirmation"];
     [params setObject:self.pwdView.valueString forKey:@"password"];
     [params setObject:self.surePwdView.valueString forKey:@"password_confirmation"];
     [params setObject:self.phoneView.field.text forKey:@"code"];

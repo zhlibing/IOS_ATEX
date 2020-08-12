@@ -184,8 +184,7 @@
         
         params[@"username"] = self.accountView.field.text;
         
-//        params[@"password"] = [WLTools encryWithString:self.pwdView.field.text];
-    params[@"password"] = self.pwdView.field.text;
+        params[@"password"] = self.pwdView.field.text;
         
 //        params[@"areaCode"] = self.areaView.getCode;
 //        params[@"areaCode"] = self.areaCode;

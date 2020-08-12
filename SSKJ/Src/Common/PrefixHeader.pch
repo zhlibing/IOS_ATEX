@@ -25,6 +25,7 @@
 #import "UIButton+SSKJ.h"
 #import "SSKJ_TextFieldView.h"
 #import "UITextField+SSKJ.h"
+#import "NSString+Conversion.h"
 
 
 
