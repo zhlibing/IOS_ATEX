@@ -178,7 +178,8 @@
 
 -(void)chargeEvent
 {
-    if (!kLogin) {
+    if (!kLogin)
+    {
         [self presentLoginController];
         return;
     }
