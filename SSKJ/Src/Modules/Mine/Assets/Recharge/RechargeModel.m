@@ -10,4 +10,17 @@
 
 @implementation RechargeModel
 
+-(void)setCode:(NSString *)code
+{
+    NSArray *codeArray = [code componentsSeparatedByString:@"-"];
+    if ([codeArray count]>=2)
+    {
+        _code = [codeArray lastObject];
+    }
+    else
+    {
+        _code = code;
+    }
+}
+
 @end

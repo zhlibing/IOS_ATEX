@@ -45,10 +45,6 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
 
 @property (nonatomic,strong) HeYue_EditWinLoss_AlertView *editWinLossAlertView;
 
-@property (nonatomic, strong) NSTimer *timer;
-
-@property (nonatomic, assign) NSInteger index;//如果大于1 加载时不显示菊花
-
 @property (nonatomic,assign) NSInteger seletedIndex;//标记选中个那个Cell  止盈止损时用
 
 @property (nonatomic,strong) Heyue_OrderWinLoss_Model * winLossmodel;//止盈止损Model
@@ -70,14 +66,7 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
     
     [self allBtn];
     
-    self.index = 1;
-    
     [self requestChiCangOrder_URL];
-    
-    
-    [self openTimer];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
 - (void)dealloc
@@ -85,118 +74,38 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
-#pragma mark - 通知（进入后台，进入后台）
 
--(void)applicationDidBecomeActive:(NSNotification *)notification
+- (void)viewWillAppear:(BOOL)animated
 {
-//    [self openSocket];
-    
-}
-
--(void)applicationDidEnterBackground:(NSNotification *)notification
-{
-    
-//    [self closeSocket];
-}
-- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    //开启推送
-//    [self openSocket];
 }
-#pragma mark -- Socket --
-//打开推送
-- (void)openSocket{
-    WS(weakSelf);
-    
-    //成交
-    // NSString *type = [WLTools wlDictionaryToJson:@{@"code":self.model.code}];
-    //SocketUrl
-    self.coinSocket = [[ManagerSocket alloc]initWithUrl:MarketSocketUrl identifier:CoinMarketSocket];
-    self.coinSocket.delegate = self;
-    [self.coinSocket openConnectSocketWithConnectSuccess:^{
-        NSString *type = [WLTools wlDictionaryToJson:@{@"type":@"goods_list_all_lever"}];
-        [weakSelf.coinSocket socketSendMsg:type];
-    }];
-}
-- (void)viewWillDisappear:(BOOL)animated{
+
+
+- (void)viewWillDisappear:(BOOL)animated
+{
     [super viewWillDisappear:animated];
-    [self closetimer];
-//    [self closeSocket];
-}
-//关闭推送
-- (void)closeSocket{
-    self.coinSocket.delegate = nil;
-    [self.coinSocket closeConnectSocket];
-    
-}
-- (void)openTimer{
-    if (!self.timer) {
-        _timer = [NSTimer scheduledTimerWithTimeInterval:2.f target:self selector:@selector(reloadTimer) userInfo:nil repeats:YES];
-    }
 }
 
-- (void)closetimer{
-    if (!self.timer) {
-        return;
-    }
-    [self.timer invalidate];
-    self.timer = nil;
-}
-#pragma mark - 推送返回的数据
-//接收推送数据
--(void)socketDidReciveData:(id)data identifier:(NSString *)identifier{
-    if ([identifier isEqualToString:CoinMarketSocket]) {
-        NSDictionary *pushGoodsInfoDatas = nil;
-        if ([data isKindOfClass:[NSString class]]){
-            pushGoodsInfoDatas = [WLTools dictionaryWithJsonString:data];
-        }
-        else if ([data isKindOfClass:[NSDictionary class]]){
-            pushGoodsInfoDatas = data;
-        }
-        SSKJ_Market_Index_Model *socketModel=[SSKJ_Market_Index_Model mj_objectWithKeyValues:data];
-        
-        NSMutableArray *tempArr = [NSMutableArray array];
-        for (int i = 0; i < self.dataSource.count; i++) {
-            Heyue_OrderDdetail_Model *model = self.dataSource[i];
-            if ([model.code isEqualToString:socketModel.code]) {
-                model.marketPrice = socketModel.price;
-                NSIndexPath *index = [NSIndexPath indexPathForRow:i inSection:0];
-                [tempArr addObject:index];
-            }
-        }
-        if (tempArr.count) {
-            [self.tableView reloadRowsAtIndexPaths:tempArr withRowAnimation:(UITableViewRowAnimationNone)];
-            [self updateSuperVC];
-        }
-        //        updateNowPriceUI
-//        [[NSNotificationCenter defaultCenter]postNotificationName:@"reloadHeyueChicangCell" object:socketModel];
-        //止盈止损弹框更新最新价
-        //        if (self.winLossmodel) {
-        if ([socketModel.code.lowercaseString isEqualToString:self.curredntModel.code.lowercaseString]) {
-            [self.editWinLossAlertView updateNowPriceUI:self.winLossmodel nowPrice:socketModel.price];
-        }
-        
-        //        }
-        //平仓价格更新
-        //止盈止损弹框更新最新价
-        
-        if (self.pingCangAlertView) {
-            if ([socketModel.code.lowercaseString isEqualToString:self.curredntModel.code.lowercaseString]) {
-                [self.pingCangAlertView setMarketPriceView:socketModel.price];
-            }
-        }
-        
-        //        if (self.doneAlertView) {
-        //            if ([socketModel.code.lowercaseString isEqualToString:self.curredntModel.stockCode.lowercaseString]) {
-        //                self.doneAlertView.nePrice = socketModel.price;
-        //            }
-        //        }
-    }
-    
+
+
+
+
+
+-(void)setItemArry:(NSArray*)array
+{
+    [self.dataSource setArray:array];
+    [self.tableView reloadData];
 }
 
-- (UITableView *)tableView{
-    if (_tableView == nil) {
+
+
+
+
+
+- (UITableView *)tableView
+{
+    if (_tableView == nil)
+    {
         _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -228,65 +137,22 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
     return _tableView;
 }
 #pragma mark - 上拉、下拉
-- (void)headerRefresh{
-    self.index = 1;
+- (void)headerRefresh
+{
     [self requestChiCangOrder_URL];
 }
-- (void)footerRefresh{
+- (void)footerRefresh
+{
     [self requestChiCangOrder_URL];
     
 }
-- (void)reloadTimer{
-    self.index++;
+- (void)reloadTimer
+{
     [self requestChiCangOrder_URL];
     
 }
 
-//- (void)headerRefreshChiCangOrder_URL{
-//    NSDictionary *params = @{
-//                             @"stockUserId":kUserID,
-//                             @"pageNum":@(1),
-//                             @"pageSize":kPageSize,
-//                             @"stockCode":self.model.code
-//                             };
-//    WS(weakSelf);
-//    //Heyue_Chicang_Api
-//    [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_DoingList_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject) {
-//
-//        WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-//        if (netModel.status.integerValue == 200) {
-////            if ([netModel.data[@"res"] isKindOfClass:[NSArray class]]) {
-//            [weakSelf.dataSource removeAllObjects];
-//                weakSelf.dataSource = [Heyue_OrderDdetail_Model mj_objectArrayWithKeyValuesArray:netModel.data[@"list"]];
-//                if (weakSelf.dataSource.count > 0) {
-//                    weakSelf.page = 2;
-//                }
-//            if ([Heyue_OrderDdetail_Model mj_objectArrayWithKeyValuesArray:netModel.data[@"list"]].count != kPageSize.integerValue) {
-//                self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
-//            }else{
-//                self.tableView.mj_footer.state = MJRefreshStateIdle;
-//            }
-//                //止盈止损弹框更新最新价
-//                if (self.winLossmodel) {
-//                    [weakSelf.editWinLossAlertView setViewWithData:weakSelf.winLossmodel orderDic:self.dataSource[self.seletedIndex]];
-//                }
-//                [SSKJ_NoDataView showNoData:self.dataSource.count toView:self.tableView offY:0];
-//
-//                [weakSelf.tableView reloadData];
-//
-//                [weakSelf endRefresh];
-////            }
-//        }else{
-//            [MBProgressHUD showError:netModel.msg];
-//        }
-//
-//
-//        [self.tableView reloadData];
-//        [self.tableView.mj_header endRefreshing];
-//    } Failure:^(NSError *error, NSInteger statusCode, id responseObject) {
-//
-//    }];
-//}
+
 
 
 #pragma mark -- 全部平仓按钮---
@@ -373,28 +239,17 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
 }
 
 #pragma mark -- 网络请求 --
-- (void)requestChiCangOrder_URL{
-    
+- (void)requestChiCangOrder_URL
+{
     [[WLHttpManager shareManager] cancleAllTask];
-    [self.timer setFireDate:[NSDate distantFuture]];
 
-    
-    MBProgressHUD *hud;
-    if (self.index > 1) {
-        hud = nil;
-    }else{
-        hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    }
-    
     NSDictionary *params = @{
                             @"data_type":@"1",
                              @"page":@"1",
                              };
     WS(weakSelf);
-    //Heyue_Chicang_Api
     [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_DoingList_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject)
     {
-        [hud hideAnimated:YES];
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
         if (netModel.status.integerValue == 200)
         {
@@ -406,8 +261,8 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
         }
         [self endRefresh];
 
-    } Failure:^(NSError *error, NSInteger statusCode, id responseObject) {
-        [hud hideAnimated:YES];
+    } Failure:^(NSError *error, NSInteger statusCode, id responseObject)
+    {
         [self endRefresh];
 
     }];
@@ -415,7 +270,6 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
 
 -(void)handleExchangeListWithModel:(WL_Network_Model *)net_model
 {
-    [self.timer setFireDate:[NSDate dateWithTimeIntervalSinceNow:5]];
     NSMutableArray *array = [Heyue_OrderDdetail_Model mj_objectArrayWithKeyValuesArray:net_model.data[@"data"]];
     self.dataSource = [NSMutableArray arrayWithArray:array];
     self.tableView.mj_footer.state = MJRefreshStateNoMoreData;
@@ -423,7 +277,6 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
     [UIView performWithoutAnimation:^{
         [weakSelf.tableView reloadData];
     }];
-    [self updateSuperVC];
     self.allBtn.hidden = !self.dataSource.count;
     [SSKJ_NoDataView showNoData:self.dataSource.count toView:self.tableView offY:0];
     
@@ -440,12 +293,6 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
     
 }
 
-#pragma mark - 更新父视图数据
-- (void)updateSuperVC{
-    if (self.updateBlock) {
-        self.updateBlock(self.dataSource);
-    }
-}
 
 -(void)endRefresh
 {

@@ -166,7 +166,8 @@ static NSString *ChengJiaoOrderID = @"ChengJiaoOrderID";
     [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_History_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject) {
         [hud hideAnimated:YES];
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-        if (netModel.status.integerValue == 200) {
+        if (netModel.status.integerValue == 200)
+        {
             if ([netModel.data[@"data"] isKindOfClass:[NSArray class]])
             {
                 NSArray *array = [Heyue_Order_ChengjiaoModel mj_objectArrayWithKeyValuesArray:netModel.data[@"data"]];
@@ -209,14 +210,5 @@ static NSString *ChengJiaoOrderID = @"ChengJiaoOrderID";
     return _dataSource;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

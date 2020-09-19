@@ -15,9 +15,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 //@property (nonatomic,strong) SSKJ_Market_Index_Model *model;//行情model
 
-- (void)openTimer;
 
-- (void)closetimer;
+
+
+-(void)setItemArry:(NSArray*)array;
+
 
 @end
 

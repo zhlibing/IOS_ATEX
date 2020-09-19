@@ -441,6 +441,8 @@
 		963F517E24D59B9C00844D73 /* YYWebImageOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 963F50F224D59B9C00844D73 /* YYWebImageOperation.m */; };
 		963F518D24D6F53B00844D73 /* RechargeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 963F518C24D6F53B00844D73 /* RechargeModel.m */; };
 		96759CED246D193E00C9432D /* Lion_AboutUsVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 96759CEB246D193E00C9432D /* Lion_AboutUsVC.m */; };
+		967DD0BD25163562000750D2 /* ProfitWeiTuoChiCangHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 967DD0BC25163562000750D2 /* ProfitWeiTuoChiCangHelper.m */; };
+		967DD0C325163575000750D2 /* LJWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 967DD0C225163575000750D2 /* LJWeakProxy.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1352,6 +1354,10 @@
 		963F518C24D6F53B00844D73 /* RechargeModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RechargeModel.m; sourceTree = "<group>"; };
 		96759CEB246D193E00C9432D /* Lion_AboutUsVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Lion_AboutUsVC.m; path = "SSKJ/Src/Modules/Mine/Main/¹ØÓÚÎÒÃÇ/Lion_AboutUsVC.m"; sourceTree = SOURCE_ROOT; };
 		96759CEC246D193E00C9432D /* Lion_AboutUsVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Lion_AboutUsVC.h; path = "SSKJ/Src/Modules/Mine/Main/¹ØÓÚÎÒÃÇ/Lion_AboutUsVC.h"; sourceTree = SOURCE_ROOT; };
+		967DD0BB25163561000750D2 /* ProfitWeiTuoChiCangHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProfitWeiTuoChiCangHelper.h; sourceTree = "<group>"; };
+		967DD0BC25163562000750D2 /* ProfitWeiTuoChiCangHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProfitWeiTuoChiCangHelper.m; sourceTree = "<group>"; };
+		967DD0C125163575000750D2 /* LJWeakProxy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LJWeakProxy.h; sourceTree = "<group>"; };
+		967DD0C225163575000750D2 /* LJWeakProxy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LJWeakProxy.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1965,6 +1971,10 @@
 		3A08C001234C5D360086ED0F /* Base */ = {
 			isa = PBXGroup;
 			children = (
+				967DD0C125163575000750D2 /* LJWeakProxy.h */,
+				967DD0C225163575000750D2 /* LJWeakProxy.m */,
+				967DD0BB25163561000750D2 /* ProfitWeiTuoChiCangHelper.h */,
+				967DD0BC25163562000750D2 /* ProfitWeiTuoChiCangHelper.m */,
 				3A08C00B234C5D360086ED0F /* SSKJ_BaseNavigationController.h */,
 				3A08C006234C5D360086ED0F /* SSKJ_BaseNavigationController.m */,
 				3A08C005234C5D360086ED0F /* SSKJ_BaseViewController.h */,
@@ -3939,6 +3949,7 @@
 				3A08C352234C5D390086ED0F /* UIView+ViewController.m in Sources */,
 				439DEE8F2399265D00B2C07B /* SSKJ_PanKou_DotView.m in Sources */,
 				43798F0123A47FBF00A79C36 /* Home_Coin_CollectionViewCell.m in Sources */,
+				967DD0C325163575000750D2 /* LJWeakProxy.m in Sources */,
 				3A08C359234C5D390086ED0F /* NSMutableString+AvoidCrash.m in Sources */,
 				439DEE982399265D00B2C07B /* HeYue_Leverage_View.m in Sources */,
 				0434E815241B5C6B006FC68F /* Lion_Forget_ViewController.m in Sources */,
@@ -4011,6 +4022,7 @@
 				065BD19524497C4B00FB4F65 /* Market_KeyBuyCoin_VC.m in Sources */,
 				3A08C33C234C5D380086ED0F /* UIView+Extension.m in Sources */,
 				3A08C330234C5D380086ED0F /* XBTextLoopView.m in Sources */,
+				967DD0BD25163562000750D2 /* ProfitWeiTuoChiCangHelper.m in Sources */,
 				3A08C353234C5D390086ED0F /* NinaPagerView.m in Sources */,
 				963F511024D59B9C00844D73 /* MJRefreshAutoGifFooter.m in Sources */,
 				43592710235D80270005C1AA /* LXY_KLine_TipView.m in Sources */,
@@ -4263,8 +4275,8 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
-				DEVELOPMENT_TEAM = 6D5Q4H7PDR;
+				CURRENT_PROJECT_VERSION = 12;
+				DEVELOPMENT_TEAM = 2VZPDQKTU8;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SSKJ/Src/Common/PrefixHeader.pch";
 				INFOPLIST_FILE = SSKJ/Root/Info.plist;
@@ -4273,7 +4285,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ATEX.soft;
 				PRODUCT_NAME = ATEX;
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4291,7 +4303,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 12;
 				DEVELOPMENT_TEAM = 2VZPDQKTU8;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREFIX_HEADER = "$(SRCROOT)/SSKJ/Src/Common/PrefixHeader.pch";
@@ -4301,7 +4313,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ATEX.soft;
 				PRODUCT_NAME = ATEX;
 				PROVISIONING_PROFILE_SPECIFIER = "";

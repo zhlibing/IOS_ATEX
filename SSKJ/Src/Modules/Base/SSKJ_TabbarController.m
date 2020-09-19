@@ -18,6 +18,8 @@
 
 #import "News_Root_ViewController.h"
 #import "Lion_AssetsMainPageVC.h"
+#import "ProfitWeiTuoChiCangHelper.h"
+
 
 /*
  @"News_Root_ViewController",
@@ -124,6 +126,21 @@
 {
     [SSTool setIsRoot:YES];
     return YES;
+}
+
+
+
+- (void)tabBarController:(UITabBarController *)tabBarController didSelectViewController:(UIViewController *)viewController
+{
+    if (tabBarController.selectedIndex == 2)
+    {
+        NSLog(@"点重了数据");
+        [[ProfitWeiTuoChiCangHelper shareHelper] startRuntimer];
+    }
+    else
+    {
+        [[ProfitWeiTuoChiCangHelper shareHelper] stopRuntimer];
+    }
 }
 
 @end

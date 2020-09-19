@@ -20,6 +20,9 @@
 
 #import "Heyue_OrderInfo_Model.h"
 
+#import "ProfitWeiTuoChiCangHelper.h"
+
+
 @interface Heyue_OrderDetail_ViewController ()<NinaPagerViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) Heyue_orderDetail_headerView *headerView;
@@ -52,9 +55,17 @@
 //    [self ninaPagerView];
     [self.view addSubview:self.segmentControl];
     [self.view addSubview:self.scrollView];
+
     
     
-    self.timer = [NSTimer scheduledTimerWithTimeInterval:2.f target:self selector:@selector(timerRefreash:) userInfo:nil repeats:YES];
+    
+    WS(weakSelf);
+    [[ProfitWeiTuoChiCangHelper shareHelper] setGetProfitWeiTuoChiCangBlock:^(Heyue_OrderInfo_Model * _Nonnull profitModel, NSArray * _Nonnull weituoArray, NSArray * _Nonnull chicangArray)
+    {
+        [weakSelf.headerView setModel:profitModel];
+        [weakSelf.weituoVC setItemArry:weituoArray];
+        [weakSelf.chicangVC setItemArry:chicangArray];
+    }];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -64,11 +75,10 @@
 
 }
 
--(void)timerRefreash:(NSTimer *)timer{
-    [self request_Tongji_URL];
-}
 
-- (void)viewWillAppear:(BOOL)animated{
+
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
 
     [self request_Tongji_URL];
@@ -93,18 +103,10 @@
     {
         //持仓
         self.chicangVC= [[Heyue_ChiCang_Order_VC alloc]init];
-        WS(weakSelf);
-        self.chicangVC.updateBlock = ^(NSArray * array) {
-            [weakSelf.headerView updateWith:array];
-        };
-        
         //委托
         self.weituoVC = [[Heyue_WeiTuo_Order_VC alloc]init];
-//        self.weituoVC.model = self.model;
-
         //成交
         self.chengjiaoVC = [[Heyue_CengJiao_Order_VC alloc]init];
-//        self.chengjiaoVC.model = self.model;
 
         NSArray *controllers=@[self.chicangVC,
                                self.weituoVC,
@@ -148,34 +150,12 @@
 
 - (void)ninaCurrentPageIndex:(NSInteger)currentPage currentObject:(id)currentObject lastObject:(id)lastObject
 {
-    
-    switch (currentPage) {
-        case 0:
-        {
-            [self.chicangVC openTimer];
-
-            [self.weituoVC closetimer];
-        }
-            break;
-        case 1:
-        {
-            [self.weituoVC openTimer];
-            
-            [self.chicangVC closetimer];
-        }
-            break;
+    switch (currentPage)
+    {
         case 2:
         {
-            [self.chicangVC closetimer];
-            
-            [self.weituoVC closetimer];
-            
             [self.chengjiaoVC beginrefreashData];
         }
-            break;
-            
-            
-        default:
             break;
     }
 }
@@ -226,12 +206,7 @@
         self.chicangVC= [[Heyue_ChiCang_Order_VC alloc]init];
         [self addChildViewController:self.chicangVC];
         [self.scrollView addSubview:self.chicangVC.view];
-        self.chicangVC.view.frame = CGRectMake(0, 0, ScreenWidth, self.scrollView.height);
-        WS(weakSelf);
-        self.chicangVC.updateBlock = ^(NSArray * array) {
-            [weakSelf.headerView updateWith:array];
-        };
-        
+        self.chicangVC.view.frame = CGRectMake(0, 0, ScreenWidth, self.scrollView.height);        
         //委托
         self.weituoVC = [[Heyue_WeiTuo_Order_VC alloc]init];
         [self addChildViewController:self.weituoVC];
@@ -249,24 +224,25 @@
 }
 
 #pragma mark -- 网络请求 浮动盈亏 爆仓率 --
-- (void)request_Tongji_URL{
-    
-    //Heyue_Tongji_Api
+- (void)request_Tongji_URL
+{
+    WS(weakSelf);
     [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_Info_URL RequestType:RequestTypeGet Parameters:nil Success:^(NSInteger statusCode, id responseObject) {
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-        if (netModel.status.integerValue == 200) {
+        if (netModel.status.integerValue == 200)
+        {
             Heyue_OrderInfo_Model *model = [Heyue_OrderInfo_Model mj_objectWithKeyValues:netModel.data];
-            
-            [self.headerView initDataWithOrderInfoModel:model];
-            
-            
-        }else{
+            [weakSelf.headerView setModel:model];
+        }
+        else
+        {
             [MBProgressHUD showError:netModel.msg];
         }
         
-    } Failure:^(NSError *error, NSInteger statusCode, id responseObject) {
-    }];
+    } Failure:^(NSError *error, NSInteger statusCode, id responseObject) {}];
 }
+
+
 
 
 #pragma mark - scroll delegate
@@ -285,47 +261,18 @@
 }
 
 
+
 -(void)setCurrentIndex:(NSInteger)index
 {
-    switch (index) {
-        case 0:
-        {
-            [self.chicangVC openTimer];
-
-            [self.weituoVC closetimer];
-        }
-            break;
-        case 1:
-        {
-            [self.weituoVC openTimer];
-            
-            [self.chicangVC closetimer];
-        }
-            break;
+    switch (index)
+    {
         case 2:
         {
-            [self.chicangVC closetimer];
-            
-            [self.weituoVC closetimer];
-            
             [self.chengjiaoVC beginrefreashData];
         }
-            break;
-            
-            
-        default:
             break;
     }
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

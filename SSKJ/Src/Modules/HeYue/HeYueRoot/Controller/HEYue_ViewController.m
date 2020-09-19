@@ -35,6 +35,9 @@
 
 #import "Heyue_OrderDdetail_Model.h"//订单Model
 
+#import "ProfitWeiTuoChiCangHelper.h"
+
+
 #import "SSKJ_NoDataView.h"//暂无数据
 #import "SSKJ_Default_ActionsheetView.h"//币种切换弹框
 #import "LoginViewController.h"
@@ -170,9 +173,12 @@ static NSString * NodataCellID = @"NodataCell";
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
    //开启推送
-   if (self.model.code > 0) {
+   if (self.model.code > 0)
+   {
 //       [self openSocket];
-   }else{
+   }
+   else
+   {
        self.model.code = @"btc_usdt";
    }
    
@@ -180,12 +186,16 @@ static NSString * NodataCellID = @"NodataCell";
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
     self.sectionView.allOrderBtn.hidden = !kLogin;
-
-    
-    
-//    [self.tableView.mj_header beginRefreshing];
-
     [self refreshCodeDate];
+    
+    
+    WS(weakSelf);
+    [[ProfitWeiTuoChiCangHelper shareHelper] setGetProfitWeiTuoChiCangBlock:^(Heyue_OrderInfo_Model * _Nonnull profitModel, NSArray * _Nonnull weituoArray, NSArray * _Nonnull chicangArray)
+    {
+        
+      [weakSelf setItemArray:weituoArray];
+        
+    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -313,11 +323,14 @@ static NSString * NodataCellID = @"NodataCell";
     if (![data[@"code"] isEqualToString:self.model.code]) {
         return;
     }
-    if ([identifier isEqualToString:PankouSocket]) {
+    if ([identifier isEqualToString:PankouSocket])
+    {
 
         self.pankouModel = [PanKou_Socket_Model mj_objectWithKeyValues:data];
         self.headerView.pankouModel = self.pankouModel;
-    } else if ([identifier isEqualToString:ShenduSocket]){
+    }
+    else if ([identifier isEqualToString:ShenduSocket])
+    {
         
         NSDictionary *pushGoodsInfoDatas = nil;
         if ([data isKindOfClass:[NSString class]]){
@@ -467,23 +480,23 @@ static NSString * NodataCellID = @"NodataCell";
     return _headerView;
 }
 #pragma mark -- UITableViewDelegate --
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
-    if (self.dataSource.count == 0) {
+    if (self.dataSource.count == 0)
+    {
         return 1;
     }
     return self.dataSource.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return .1f;
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
     return ScaleW(50);
 }
 
@@ -494,10 +507,12 @@ static NSString * NodataCellID = @"NodataCell";
         view.isTimeHeyue = NO;
             WS(weakSelf);
             view.AllOrderBlock = ^{
-                if (kLogin != 1) {
+                if (kLogin != 1)
+                {
                     [weakSelf login];
                     return ;
                 }
+#pragma mark 全部订单
                 Heyue_OrderDetail_ViewController *vc = [[Heyue_OrderDetail_ViewController alloc]init];
                 vc.seletedIndex = 0;
                 
@@ -600,10 +615,8 @@ static NSString * NodataCellID = @"NodataCell";
 {
     NSArray *array = [SSKJ_Market_Index_Model mj_objectArrayWithKeyValuesArray:network_model.data];
     
-    
-    
-    
-    if (array.count > 0) {
+    if (array.count > 0)
+    {
         if (![self hasCurrentModel:array]) {
             self.model = array.firstObject;
         }
@@ -726,12 +739,14 @@ static NSString * NodataCellID = @"NodataCell";
 }
 
 #pragma mark -- 委托单请求 --
-- (void)requestWeiTuoOrder_URL_Pull{
+- (void)requestWeiTuoOrder_URL_Pull
+{
     if (!kLogin) {
         [self endRefresh];
         return;
     }
-    if (!self.model.code.length) {
+    if (!self.model.code.length)
+    {
         [self endRefresh];
         return;
     }
@@ -745,10 +760,9 @@ static NSString * NodataCellID = @"NodataCell";
     //Heyue_Weituo_Api
     [[WLHttpManager shareManager] requestWithURL_HTTPCode:URL_HEYUE_List_URL RequestType:RequestTypeGet Parameters:params Success:^(NSInteger statusCode, id responseObject) {
         WL_Network_Model *netModel = [WL_Network_Model mj_objectWithKeyValues:responseObject];
-        if (netModel.status.integerValue == 200) {
+        if (netModel.status.integerValue == 200)
+        {
             [weakSelf handleExchangeListWithModel:netModel];
-
-        }else{
         }
         [weakSelf endRefresh];
 
@@ -762,20 +776,19 @@ static NSString * NodataCellID = @"NodataCell";
 {
     
     NSMutableArray *array = [Heyue_OrderDdetail_Model mj_objectArrayWithKeyValuesArray:net_model.data[@"data"]];
-    
-    [self.dataSource removeAllObjects];
-    [self.dataSource addObjectsFromArray:array];
-
+    [self.dataSource setArray:array];
     [self.tableView reloadData];
 
 }
 -(void)endRefresh
 {
-    if (self.tableView.mj_header.state == MJRefreshStateRefreshing) {
+    if (self.tableView.mj_header.state == MJRefreshStateRefreshing)
+    {
         [self.tableView.mj_header endRefreshing];
     }
     
-    if (self.tableView.mj_footer.state == MJRefreshStateRefreshing) {
+    if (self.tableView.mj_footer.state == MJRefreshStateRefreshing)
+    {
         [self.tableView.mj_footer endRefreshing];
     }
 }
@@ -802,8 +815,10 @@ static NSString * NodataCellID = @"NodataCell";
     }];
 }
 
-- (NSMutableArray *)dataSource{
-    if (_dataSource == nil) {
+- (NSMutableArray *)dataSource
+{
+    if (_dataSource == nil)
+    {
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
@@ -847,5 +862,13 @@ static NSString * NodataCellID = @"NodataCell";
     [self presentLoginController];
 }
 
+
+
+-(void)setItemArray:(NSArray*)array
+{
+    [self endRefresh];
+    [self.dataSource setArray:array];
+    [self.tableView reloadData];
+}
 
 @end

@@ -37,7 +37,7 @@
 
 @property (nonatomic,strong) UIView *yingKuiBgView;
 
-@property(nonatomic, strong)Heyue_OrderInfo_Model *model;
+
 @end
 
 @implementation Heyue_orderDetail_headerView
@@ -278,8 +278,10 @@
     return _fengxianlvLabel;
 }
 
-- (void)initDataWithOrderInfoModel:(Heyue_OrderInfo_Model *)model{
-    self.model = model;
+#pragma mark 填充数据
+- (void)setModel:(Heyue_OrderInfo_Model *)model
+{
+    _model = model;
     
     self.dongtaiquanyiLabel.text = [SSTool HeyuePname:@"USDT" price:model.totalusdt];
     self.keyongLabel.text = [SSTool HeyuePname:@"USDT" price:model.keyong_price];
@@ -287,11 +289,14 @@
     self.fudongyingkuiLabel.text = [SSTool HeyuePname:@"USDT" price:model.yingkui];
     self.fengxianlvLabel.text = [NSString stringWithFormat:@"%@%@",[SSTool disposePname:@"2" price:[NSString stringWithFormat:@"%.9f", model.risk.doubleValue]],@"%"];
     
-    if ([self.fudongyingkuiLabel.text containsString:@"-"]) {
+    if ([self.fudongyingkuiLabel.text containsString:@"-"])
+    {
 //        self.fudongyingkuiLabel.textColor = kMarketDown;
 //        self.fudongyingkuiTitle.textColor = kMarketDown;
         self.yingKuiBgView.backgroundColor = kMarketDown;
-    }else{
+    }
+    else
+    {
 //        self.fudongyingkuiLabel.textColor = kMarketUp;
 //        self.fudongyingkuiTitle.textColor = kMarketUp;
         self.yingKuiBgView.backgroundColor = kMarketUp;
@@ -299,7 +304,8 @@
     }
 }
 
-- (void)updateWith:(NSArray *)array{
+- (void)updateWith:(NSArray *)array
+{
 //    if (!array.count) {
 //        return;
 //    }

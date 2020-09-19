@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LXY_KLine_TipView : UIView
 
+@property (nonatomic, assign) NSInteger index;
+
 -(void)showTipViewWith:(LXY_KLine_DataModel *)model;
 
 

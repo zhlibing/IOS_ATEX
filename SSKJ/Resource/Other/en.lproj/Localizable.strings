@@ -442,7 +442,7 @@
 "切换语言" = "Switch language";
 "关闭谷歌验证" = "Turn off Google verification";
 "开启谷歌验证"="Turn on Google verification";
-"请勿向上述地址充值任何非%@资产，否则资产将不可找回。 您充值至上述地址后，需要整个网络节点的确认，6次网络确认后 到账。 您可以在充值记录里查看充值状态！" = "Please do not deposit any non-% @ assets to the above address, otherwise the assets will not be recovered. After you recharge to the above address, you need the confirmation of the entire network node, and the account will be received after 6 network confirmations. You can check the recharge status in the recharge history!";
+"请勿向上述地址充值任何非USDT资产，否则资产将不可找回。 您充值至上述地址后，需要整个网络节点的确认，6次网络确认后 到账。 您可以在充值记录里查看充值状态！" = "Please do not deposit any non-USDT assets to the above address, otherwise the assets will not be recovered. After you recharge to the above address, you need the confirmation of the entire network node, and the account will be received after 6 network confirmations. You can check the recharge status in the recharge history!";
 "hy_pingcang"="hy_pingcang_en";
 "请先绑定谷歌验证"="Please bind Google verification first";
 "tghb"="tghb_en";

@@ -436,6 +436,11 @@
 //委托列表 ATEX
 #define URL_HEYUE_List_URL [NSString stringWithFormat:@"%@%@",ProductBaseServer,@"/api/contract/transData"]
 
+//委托持仓统一列表
+#define URL_Userdatas_URL [NSString stringWithFormat:@"%@%@",ProductBaseServer,@"/api/contract/userdatas"]
+
+
+
 // 持仓数量
 #define URL_HY_ChiCangNum_URL [NSString stringWithFormat:@"%@%@",ProductBaseServer,@"/app/leverDeal/getPositionCount"]
 

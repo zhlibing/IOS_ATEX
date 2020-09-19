@@ -611,7 +611,8 @@ static NSString *marketSocketIdentifier = @"maekSocketIdentifier";
     
     NSDictionary *dic = (NSDictionary *)data;
     
-    if ([identifier isEqualToString:marketSocketIdentifier]) {
+    if ([identifier isEqualToString:marketSocketIdentifier])
+    {
         SSKJ_Market_Index_Model *socketModel = [SSKJ_Market_Index_Model mj_objectWithKeyValues:dic];
         self.headerView.coinModel = socketModel;
         
@@ -621,7 +622,8 @@ static NSString *marketSocketIdentifier = @"maekSocketIdentifier";
             self.bbTradebutton.backgroundColor = KgreenColor;
         }
 
-    }else if ([identifier isEqualToString:klineSocketIdentifier])
+    }
+    else if ([identifier isEqualToString:klineSocketIdentifier])
     {
                 
         if ([dic[@"code"] isEqualToString:self.coinModel.code])
