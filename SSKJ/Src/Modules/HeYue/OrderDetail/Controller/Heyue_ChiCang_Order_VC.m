@@ -185,21 +185,14 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
     [self.allPingCangAlertView showWithMessage:SSKJLocalized(@"是否确认要全部平仓?", nil)];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
     return self.dataSource.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
-    return .01f;
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return .01f;
-}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return ScaleW(240);
@@ -286,8 +279,9 @@ static NSString *ChiCangOrderID = @"ChiCangOrderID";
             [self.pingCangAlertView setMarketPriceView:model.marketPrice];
         }
         
-        if ([model.ID isEqualToString:self.curredntModel.ID] && self.editWinLossAlertView.superview != nil) {
-            [self.editWinLossAlertView updateNowPriceUI:model nowPrice:model.marketPrice];
+        if ([model.ID isEqualToString:self.curredntModel.ID] && self.editWinLossAlertView.superview != nil)
+        {
+            [self.editWinLossAlertView updateNowPriceUI:(Heyue_OrderWinLoss_Model*)model nowPrice:model.marketPrice];
         }
     }
     

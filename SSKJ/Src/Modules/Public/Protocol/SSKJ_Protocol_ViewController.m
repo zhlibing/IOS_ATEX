@@ -38,7 +38,7 @@
     {
         self.title = SSKJLocalized(@"法律声明", nil);
     }
-    else if (type == 10)
+    else if (type == 9)
     {
         self.title = SSKJLocalized(@"用户协议", nil);
     }

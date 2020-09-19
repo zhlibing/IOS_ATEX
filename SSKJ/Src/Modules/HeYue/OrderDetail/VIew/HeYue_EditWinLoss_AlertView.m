@@ -290,7 +290,7 @@
     }];
 }
 
--(void)updateNowPriceUI:(Heyue_OrderWinLoss_Model *)model nowPrice:(NSString *)nowPrice{
+-(void)updateNowPriceUI:(Heyue_OrderWinLoss_Model  *)model nowPrice:(NSString *)nowPrice{
     
     
     self.orderModel.marketPrice = nowPrice;
